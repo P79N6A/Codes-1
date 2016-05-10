@@ -1,175 +1,132 @@
 #include <iostream>
-#include <cstring>
+#include <string.h>
 #include <cstdio>
-#include <queue>
-#include <stack>
-
+#define  size 30
 using namespace std;
 
-const int INF = 0x3f3f3f3f;
+int nline;
 
-const int Max = 550;
+int dif = 1;
 
-typedef struct node
+enum
 {
-    int v,w,next;
-}edge;
+    top ,
+    rit ,
+    bom ,
+    lef
+};
 
-edge e[Max*Max];
-
-int H[Max],top;
-
-
-int Dis[Max];
-
-int num[Max],Num[Max][2];
-
-int pre[Max];
-
-bool vis[Max];
-
-int n,m,s,t;
-
-int a[Max];
-
-void AddEdge(int u,int v,int w)
+struct square
 {
-    e[top].v = v; e[top].w = w;
+    int dig[4];
+    int count ;
+}squares[size];
 
-    e[top].next =  H[u] ;  H[u] = top++;
+int resultsqu[size];
 
+int S_top;
 
-    e[top].v = u; e[top].w = w;
+int AK = 0;
 
-    e[top].next =  H[v] ;  H[v] = top++;
-}
-
-void SPFA()
+void dfs(int j )
 {
-    memset(Dis,INF,sizeof(Dis));
 
-    for(int i = 0;i<n;i++)
+    j++;
+
+    if(j == nline * nline)
     {
-        num[i] = a[i];
+        AK = 1;
+        return;
 
-        pre[i] = -1;
-
-        Num[i][0] = Num[i][1] = 0;
-
-        vis[i] = false;
     }
 
-    vis[s] = true;
 
-    Dis[s] = 0;
-
-    queue<int>Q;
-
-    Num[s][0] = 1;
-
-    Q.push(s);
-
-    while(!Q.empty())
+    int i;
+    for( i = 0 ; i < dif;i++)
     {
-        int u = Q.front();
-
-        Q.pop();
-
-        for(int i = H[u];~i;i= e[i].next)
+        if(squares[i ].count )
         {
-            int v = e[i].v;
-
-            if(Dis[v]>Dis[u]+e[i].w)
+            if( j   >= nline )
             {
-                Dis[v]  =Dis[u]+e[i].w;
-
-                Num[v][1] = Num[v][0];
-                Num[v][0] = Num[u][0];
-
-                num[v] = a[v]+num[u];
-
-                pre[v] = u;
-
-                if(!vis[v])
-                {
-                    vis[v] = true;
-
-                    Q.push(v);
-                }
+               if( squares[resultsqu[j  - nline] ].dig[bom] != squares[i ].dig[top])continue;
             }
-            else if(Dis[v]==Dis[u]+e[i].w)
+            if( j   % nline != 0 )//不是每一行的第一个
             {
-                Num[v][1] = Num[v][0];
-                Num[v][0] += (Num[u][0]-Num[u][1]);
-
-
-                if(num[v]<num[u]+a[v])
-                {
-                    num[v] = num[u]+a[v];
-
-                    pre[v] = u;
-                }
-                if(!vis[v])
-                {
-                    vis[v] = true;
-
-                    Q.push(v);
-                }
-
+                if(squares[resultsqu[j-1] ].dig[rit] != squares[ i ].dig[lef] ) continue;
             }
+
+           resultsqu[j] = i;
+            //**************把这个放进去********
+
+
+            //状态压入
+
+            if(AK) return;
+            squares[i ].count --;
+
+            dfs(j);
+
+            //状态弹出
+            squares[i ].count ++;
+            resultsqu[j] = -1 ;
         }
+        if(AK) return;
 
-        vis[u]= false;
     }
-
 
 }
 
 int main()
 {
-    int u,v,w;
+    #ifdef LOCAL
+    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
+    //freopen("C:\\Users\\apple\\Desktop\\out.txt", "w", stdout);
+    #endif
+    int k = 1;
+    int f = 0;
+    int t , r , b, l;
+   while(scanf("%d",&nline),nline)
+   {
+       if(f)printf("\n");
+       f = 1;
 
-    while(~scanf("%d %d %d %d",&n,&m,&s,&t))
-    {
-        for(int i = 0;i<n;i++)
-        {
-            scanf("%d",&a[i]);
-        }
 
-        top =0 ;
+       int i = 0 ,j = 0 ;
+        dif = 0;
+       for(; i < nline*nline ;i++)
+       {
+         scanf("%d%d%d%d",&t,&r,&b,&l);
+         for(j = 0; j < dif  ;j++)
+         {
+             if( ( squares[j].dig[top] == t  )&& (squares[j].dig[rit] == r)  &&  (squares[j].dig[bom] == b ) &&(squares[j].dig[lef] == l))
+                 {
+                     squares[j].count++;
+                     break;
+                 }
+         }
+         if(j == dif )
+         {
+             squares[dif].dig[top] = t ;
+             squares[dif].dig[rit] = r;
+             squares[dif].dig[bom] = b ;
+             squares[dif].dig[lef] = l;
+             squares[dif].count = 1;
+             dif++;
+         }
+       }
 
-        memset(H,-1,sizeof(H));
+       //输入部分
+       S_top = 0;
+       //memset(boolture,0,sizeof(boolture));
+       AK = 0;
 
-        for(int i = 0;i<m;i++)
-        {
-            scanf("%d %d %d",&u,&v,&w);
+       dfs(-1);
 
-            AddEdge(u,v,w);
-        }
+       printf("Game %d: ", k++);
+       if(AK)printf("Possible\n");
+       else printf("Impossible\n");
 
-        SPFA();
-
-        printf("%d %d\n",Num[t][0],num[t]);
-
-        stack<int>S;
-
-        for(int i = t ;~i;i  = pre[i])
-        {
-            S.push(i);
-        }
-        bool flag = false;
-
-        while(!S.empty())
-        {
-            if(!flag) flag= true;
-
-            else printf(" ");
-
-            printf("%d",S.top());
-
-            S.pop();
-        }
-        printf("\n");
-    }
+   }
+   //getchar();
     return 0;
 }
