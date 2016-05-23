@@ -17,23 +17,23 @@ using namespace std;
 
 const int INF = 0x7f7f7f7f;
 const int MAXN = 1e6 + 111;
-const int mod = 1e9 + 7;
-
-int tet(int a) {
-    return a;
-    int b = 0;
-    b *= b;
-}
-
-ll f[MAXN];
 
 int main()
 {
-    #ifdef LOCAL
-    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
-    #endif
-    cout << pow(-2, 2);
-    tet(12);
-    int *a = new int[12];
+    int a, b, c;
+    cin >> a >> b >> c;
+    if (c == 0) {
+        if (a == b) puts("YES");
+        else puts("NO");
+        return 0;
+    }
+    if (c > 0) {
+        if (b < a || (b - a) % c) puts("NO");
+        else puts("YES");
+    }
+    else {
+        if (b > a || (b - a) % c) puts("NO");
+        else puts("YES");
+    }
     return 0;
 }

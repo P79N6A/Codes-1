@@ -17,23 +17,14 @@ using namespace std;
 
 const int INF = 0x7f7f7f7f;
 const int MAXN = 1e6 + 111;
-const int mod = 1e9 + 7;
-
-int tet(int a) {
-    return a;
-    int b = 0;
-    b *= b;
-}
-
-ll f[MAXN];
 
 int main()
 {
-    #ifdef LOCAL
-    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
-    #endif
-    cout << pow(-2, 2);
-    tet(12);
-    int *a = new int[12];
+    ll n, a, b, c, d;
+    cin >> n >> a >> b >> c >> d;
+    ll l = max((ll)1, max(max(1 + c - b, 1 + d - a), 1 + c + d - a - b));
+    ll r = min(n, min(min(n + d - a, n + c + d - a - b), n + c - b));
+    if (r < l) cout << 0 << '\n';
+    else cout << n * (r - l + 1) << '\n';
     return 0;
 }

@@ -16,24 +16,27 @@
 using namespace std;
 
 const int INF = 0x7f7f7f7f;
-const int MAXN = 1e6 + 111;
-const int mod = 1e9 + 7;
+const int MAXN = 1e5 + 111;
 
-int tet(int a) {
-    return a;
-    int b = 0;
-    b *= b;
-}
-
-ll f[MAXN];
+ll a[MAXN];
+map<ll, int> mp;
 
 int main()
 {
     #ifdef LOCAL
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    cout << pow(-2, 2);
-    tet(12);
-    int *a = new int[12];
+    int n;
+    while (~scanf("%d", &n)) {
+        mp.clear();
+        int mx = 0;
+        a[0] = 0;
+        for (int i = 1; i <= n; ++i) {
+            scanf("%I64d", &a[i]);
+            a[i] += a[i - 1];
+            mx = max(mx, ++mp[a[i]]);
+        }
+        printf("%d\n", n - mx);
+    }
     return 0;
 }
