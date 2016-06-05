@@ -18,25 +18,20 @@ using namespace std;
 const int INF = 0x7f7f7f7f;
 const int MAXN = 1e6 + 111;
 
+int a;
+
 int main()
 {
-    int n; cin >> n;
-    int up = pow(2, n);
+    #ifdef LOCAL
+    //freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
+    #endif
+    int n, h;
+    cin >> n >> h;
     int ans = 0;
-    for (int i = 0; i < up; ++i) {
-        int t = i;
-        int cnt = 0;
-        while (t) {
-            if (t & 1) {
-                ++cnt;
-                if (cnt == 2) {
-                    ++ans;
-                    break;
-                }
-            }
-            else cnt = 0;
-            t >>= 1;
-        }
+    for (int i = 0; i < n; ++i) {
+        cin >> a;
+        if (a > h) ans += 2;
+        else ans += 1;
     }
     cout << ans << '\n';
     return 0;
