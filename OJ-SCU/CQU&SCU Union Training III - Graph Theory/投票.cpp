@@ -27,14 +27,20 @@ struct P {
     }
 }p[MAXN];
 vector<int> G[MAXN];
-int dfn[MAXN], low[MAXN], id[MAXN], sta[MAXN], in[MAXN], w[MAXN];
+vector<int> M[MAXN];
+int dfn[MAXN], low[MAXN], id[MAXN], sta[MAXN], in[MAXN], w[MAXN], tol[MAXN];
+int vis[MAXN];
 int scc, top, indx;
 int u[MAXM], v[MAXM];
 
 void init(int n) {
     for (int i = 1; i <= n; ++i) {
         G[i].clear();
+        M[i].clear();
+        vis[i] = 0;
         dfn[i] = 0;
+        tol[i] = 0;
+        in[i] = 0;
     }
     scc = top = indx = 0;
 }
@@ -62,8 +68,20 @@ void tarjan(int u) {
             in[v] = 0;
             id[v] = scc;
         } while (u != v);
+        w[scc] = t;
     }
-    w[scc] = t;
+}
+
+void flow(int p, int u) {
+    vis[u] = p;
+    for (int i = 0; i < M[u].size(); ++i) {
+        int v = M[u][i];
+        if (vis[v] != p) {
+            tol[v] += w[p] + 1;
+            //pr(v)
+            flow(p, v);
+        }
+    }
 }
 
 int main()
@@ -83,16 +101,18 @@ int main()
         for (int i = 1; i <= n; ++i) {
             if (!dfn[i]) tarjan(i);
         }
+        //pr(scc)
         for (int i = 0; i < m; ++i) {
             int x = id[u[i]], y = id[v[i]];
             if (x == y) continue;
-            w[y] += w[x] + 1;
+            M[x].push_back(y);
+        }
+        for (int i = 1; i <= scc; ++i) {
+            flow(i, i);
         }
         for (int i = 1; i <= n; ++i) {
             p[i].n = i;
-            p[i].w = w[id[i]];
-            //pr(id[i])
-           // pr(p[i].w)
+            p[i].w = w[id[i]] + tol[id[i]];
         }
         sort(p + 1, p + n + 1);
         printf("Case %d: %d\n", kase, p[n].w);

@@ -16,28 +16,56 @@
 using namespace std;
 
 const int INF = 0x7f7f7f7f;
-const int MAXN = 1e6 + 111;
+const int MAXN = 5e3 + 111;
+const int MAXM = 3e4 + 111;
+
+struct P {
+    int n, w;
+    bool operator < (const P &t)const {
+        if (t.w == w) return n < t.n;
+        return w < t.w;
+    }
+}p[MAXN];
+vector<int> G[MAXN];
+vector<int> M[MAXN];
+int dfn[MAXN], low[MAXN], id[MAXN], sta[MAXN], in[MAXN], w[MAXN], tol[MAXN];
+int vis[MAXN];
+int scc, top, indx;
+int u[MAXM], v[MAXM];
+
+void init(int n) {
+    for (int i = 1; i <= n; ++i) {
+        G[i].clear();
+        M[i].clear();
+        vis[i] = 0;
+        dfn[i] = 0;
+        tol[i] = 0;
+        in[i] = 0;
+    }
+    scc = top = indx = 0;
+}
+
+void flow(int par, int u) {
+    vis[u] = par;
+    for (int i = 0; i < G[u].size(); ++i) {
+        int v = G[u][i];
+        if (vis[v] != par) {
+            p[v].w += 1;
+            //pr(v)
+            flow(par, v);
+        }
+    }
+}
 
 int main()
 {
-    int n; cin >> n;
-    int up = pow(2, n);
-    int ans = 0;
-    for (int i = 0; i < up; ++i) {
-        int t = i;
-        int cnt = 0;
-        while (t) {
-            if (t & 1) {
-                ++cnt;
-                if (cnt == 2) {
-                    ++ans;
-                    break;
-                }
-            }
-            else cnt = 0;
-            t >>= 1;
-        }
+    #ifdef LOCAL
+    freopen("C:\\Users\\apple\\Desktop\\in.txt", "w", stdout);
+    #endif
+    cout << 1 << '\n';
+    cout << 30 << ' ' << 29 << '\n';
+    for (int i = 1; i <= 29; ++i) {
+        cout << i << ' ' << i + 1 << '\n';
     }
-    cout << ans << '\n';
     return 0;
 }
