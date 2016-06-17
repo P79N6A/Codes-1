@@ -1,0 +1,33 @@
+import java.util.Scanner
+fun main(args:Array<String>) {
+  val n:Int
+  val a = IntArray(3)
+  val cin = Scanner(System.`in`)
+  n = cin.nextInt()
+  for (i in 0..n - 1)
+  {
+    for (j in 0..2)
+    {
+      a[j] = cin.nextInt()
+    }
+    val flag = BooleanArray(1)
+    flag[0] = false;
+    for (j in 1..a[0])
+    {
+      if (a[2] % j != 0)
+      {
+        continue
+      }
+      val x = a[2] / j
+      if (x <= a[1])
+      {
+        flag[0] = true
+        break
+      }
+    }
+    if (flag[0])
+    println("Yes")
+    else
+    println("No")
+  }
+}
