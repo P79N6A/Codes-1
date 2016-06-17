@@ -15,72 +15,72 @@
 #define pr(x) cout << #x << " = " << (x) << '\n';
 using namespace std;
 
-const int INF = 0x7f7f7f7f;
+const int INF = 0x3f3f3f3f;
 const int MAXN = 111;
 
-struct P {
-    int v, w;
-    P(int a, int b): v(a), w(b){};
-};
-struct PP {
-    int u, k, len;
-    PP(int a, int b, int c): u(a), k(b), len(c){};
-};
-vector<P> G[MAXN];
-int dis[MAXN][20][MAXN * 5];
-bool in[MAXN][20][MAXN * 5];
+int t, a, b, m, l, k, u, v, w, n;
+int dis[MAXN][MAXN];
+int pass[MAXN][MAXN];
+int dp[MAXN][20];
+
+void init() {
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            for (int k = 1; k <= n; ++k) {
+                dis[j][k] = min(dis[j][k], dis[j][i] + dis[i][k]);
+                if (i <= a) {
+                    pass[j][k] = min(pass[j][k], pass[j][i] + pass[i][k]);
+                }
+            }
+        }
+    }
+    //printf("dis1n = %d\n", dis[1][n]);
+}
+
+void solve() {
+    memset(dp, 0x3f, sizeof dp);
+    for (int i = 1; i <= n; ++i) {
+        dp[i][0] = dis[n][i];
+    }
+    for (int i = 1; i <= k; ++i) {
+        for (int u = 1; u <= n; ++u) {
+            for (int v = 1; v <= n; ++v) {
+                if (pass[v][u] <= l) {
+                    //printf("%d -> %d\n", v, u);
+                    dp[u][i] = min(dp[u][i], dp[v][i - 1]);
+                }
+            }
+        }
+        for (int u = 1; u <= n; ++u) {
+            for (int v = 1; v <= n; ++v) {
+                if (dp[u][i] > dp[v][i] + dis[v][u]) {
+                    dp[u][i] = dp[v][i] + dis[v][u];
+                }
+            }
+        }
+    }
+}
 
 int main()
 {
-    #ifdef LOCAL
+    #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
     ios_base::sync_with_stdio(0);
-    int t, a, b, n, m, l, k, u, v, w; cin >> t;
+    cin >> t;
     while (t --) {
         cin >> a >> b >> m >> l >> k;
         n = a + b;
-        for (int i = 1; i <= n; ++i) G[i].clear();
-        for (int i = 0; i < m; ++i) {
-            cin >> u >> v >> w;
-            G[u].push_back(P(v, w));
-            G[v].push_back(P(u, w));
-        }
         memset(dis, 0x3f, sizeof dis);
-        memset(in, 0, sizeof in);
-        for (int i = 1; i <= k; ++i) {
-            for (int j = 0; j <= l; ++j) {
-                dis[n][i][j] = 0;
-                in[n][i][j] = 1;
-            }
+        memset(pass, 0x3f, sizeof pass);
+        while (m --) {
+            cin >> u >> v >> w;
+            dis[u][v] = dis[v][u] = min(dis[u][v], w);
+            pass[u][v] = pass[v][u] = dis[u][v];
         }
-        queue<PP> q;
-        q.push(PP(n, k, l));
-        while (q.size()) {
-            PP cur = q.front(); q.pop();
-            int u = cur.u, lef = cur.k, len = cur.len;
-            for (int i = 0; i < G[u].size(); ++i) {
-                int v = G[u][i].v, w = G[u][i].w;
-                if (len < l) {
-                    if (dis[u][lef][len] + w < dis[v][lef - 1][l]) {
-                        dis[v][lef - 1][l] = dis[u][lef][len] + w;
-                        if (!in[v][lef - 1][l]) {
-                            in[v][lef - 1][l] = 1;
-                            q.push(PP(v, lef - 1, l));
-                        }
-                    }
-                }
-                if (lef > 0 || G[u][i].w <= len) {
-                    if (dis[u][lef][len] < dis[v][lef][len - w]) {
-                        dis[v][lef][len - w] = dis[u][lef][len];
-                        if (!in[v][lef][len - w]) {
-                            in[v][lef][len - w] = 1;
-                            q.push(PP(v, lef, len - w));
-                        }
-                    }
-                }
-            }
-        }
+        init();
+        solve();
+        printf("%d\n", dp[1][k]);
     }
     return 0;
 }

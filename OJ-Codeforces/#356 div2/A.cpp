@@ -18,11 +18,26 @@ using namespace std;
 const int INF = 0x7f7f7f7f;
 const int MAXN = 1e6 + 111;
 
+int num[111];
+
 int main()
 {
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    pr((bool)(~(123123)));
+    int x;
+    int ans = 0;
+    for (int i = 0; i < 5; ++i) {
+        cin >> x;
+        ++num[x];
+        ans += x;
+    }
+    int mx = 0;
+    for (int i = 100; i >= 1; --i) {
+        if (num[i] >= 2) {
+            mx = max(i * min(num[i], 3), mx);
+        }
+    }
+    cout << ans - mx << '\n';
     return 0;
 }

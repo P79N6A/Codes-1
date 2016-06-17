@@ -20,8 +20,19 @@ const int MAXN = 1e6 + 111;
 
 int main()
 {
-    #ifdef LOCAL
+    #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
+    int n;
+    cin >> n;
+    string a;
+    int b, c;
+    bool flag = 0;
+    for (int i = 0; i < n; ++i) {
+            cin >> a >> b >> c;
+        if (b >= 2400 && c - b > 0) flag = 1;
+    }
+    if (flag) cout << "YES\n";
+        else cout << "NO\n";
     return 0;
 }
