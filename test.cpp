@@ -1,80 +1,100 @@
-#include <iostream>
-#include <cstdlib>
-#include <cstring>
-#include <cstdio>
-#include <algorithm>
+#include<iostream>
+#include<algorithm>
+#include<cstdio>
+#include<cmath>
+#include<cstring>
+#include<string>
+#include<vector>
+#include<cctype>
+#include<set>
+#include<map>
+#include<queue>
+#include<stack>
+#include<iomanip>
+#include<sstream>
+#define ll long long
+#define inf 0x3f3f3f3f
 using namespace std;
-
-int N, mod, head[100005];
-int idx, lim, edge, top;
-int stk[1000100];
-
-struct Edge {
-    int v, next;
-}e[1000100]; // 每个节点只能够引出10条边
-
-char vis[1000100];
-
-void insert(int a, int b) {
-    e[idx].v = b;
-    e[idx].next = head[a];
-    head[a] = idx++;
+const int MOD= 72807249;
+const int maxn = 200010;
+const int maxm = 2e6+10;
+struct Edge{
+   ll a,b;
+}numb[maxn];
+struct Node{
+    ll l , r;
+    ll sum;
+}tree[2*maxn+100];
+ll ans = 1;
+void build(ll l,ll r,ll cur){
+    if(l > r) return ;
+    tree[cur].l=l;
+    tree[cur].r=r;
+   // tree[cur].flag=false;
+    if(l==r){
+        if (numb[l].a==1) tree[cur].sum = numb[l].b%MOD;
+        else tree[cur].sum = 1;
+        return ;
+    }
+    build(l,(l+r)>>1,cur*2);
+    build(((l+r)>>1)+1,r,cur*2+1);
+    tree[cur].sum = (tree[cur*2].sum%MOD)*(tree[cur*2+1].sum%MOD);
+    tree[cur].sum %= MOD;
 }
-
-void dfs() {
-    stk[top++] = 0;
-    while (1) {
-        int flag = 0;
-        int v = stk[top-1]; // 取出栈顶元素
-        if (top == edge-(N-2)) { // 由于遍历的是点，因此从一个点N个9到N个0最终无法到达，中间也就少了N-2个状态
+void update(ll l,ll r,ll cur)
+{
+    if (tree[cur].l > r || tree[cur].r < l) return;
+    if (tree[cur].l >= l && tree[cur].r <= r)
+    {
+        tree[cur].sum = 1;
+        return;
+    }
+    update(l,r,cur*2);
+    update(l,r,cur*2+1);
+    tree[cur].sum = (tree[cur*2].sum%MOD)*(tree[cur*2+1].sum%MOD);
+    tree[cur].sum %= MOD;
+}
+void query(ll l,ll r,ll cur)
+{
+     if(tree[cur].l > r || tree[cur].r < l) return;
+     if(tree[cur].l >= l && tree[cur].r <= r){
+            ans *= tree[cur].sum;
+            ans %= MOD;
             return;
-        }
-        for (int i = head[v]; i != -1; i = e[i].next) {
-            if (!vis[i]) {
-                flag = 1;
-                vis[i] = 1;
-                //if (top < 4) printf("%d\n", e[i].v);
-                stk[top++] = e[i].v;
-                break;
-            }
-        }
-        if (!flag) {
-            --top;
-        }
-    }
+     }
+    query(l,r,cur*2);
+    query(l,r,cur*2+1);
 }
-
-int main() {
-    while (scanf("%d", &N), N) {
-        if (N == 1) {
-            printf("0123456789\n");
-            continue;
+int main(){
+#ifdef GooZy
+    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
+    #endif
+    int T,n;
+    scanf("%d",&T);
+    while(T--)
+    {
+        scanf("%d",&n);
+        for(int i = 1; i <= n; i++)
+        {
+           scanf("%lld %lld",&numb[i].a,&numb[i].b);
         }
-        idx = top = 0;
-        memset(head, 0xff, sizeof (head));
-        memset(vis, 0, sizeof (vis));
-        lim = 1;
-        for (int i = 1; i < N; ++i) {
-            lim *= 10;
+        build(1,n,1);
+        ans = 1;
+        for(int i = 1; i <= n; i++)
+        {
+           if (numb[i].a == 1)
+           {
+               ans *= (numb[i].b%MOD);
+               ans %= MOD;
+           }
+           else
+           {
+                update(numb[i].b,numb[i].b,1);
+                ans = 1;
+                query(1,i,1);  //cout<<l << " "<<r<<" "<<ans <<endl;
+           }
+            printf("%lld\n",ans);
         }
-        edge = lim * 10;
-        mod = lim / 10; // mod用来提取后后几位
-        printf("%d\n", mod);
-        for (int i = 0; i < lim; ++i) {
-            for (int j = 9; j >= 0; --j) { // 十个状态转移
-                insert(i, (i%mod)*10+j);
-            }
-        }
-        dfs();
-        for (int i = 0; i < top-1; ++i) {
-            //if (i < 5) printf("\n test = %d \n", stk[i]);
-            printf("%d", stk[i]/mod);
-        }
-        printf("%d", stk[top-1]);
-        for (int i = 1; i < N; ++i) {
-            printf("0");
-        }
-        puts("");
     }
-    return 0;
+	return 0;
 }
