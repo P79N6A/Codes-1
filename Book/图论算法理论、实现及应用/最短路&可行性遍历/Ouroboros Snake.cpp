@@ -1,3 +1,6 @@
+/* 题意：
+ * 输出n的最小环中，第k个数的值
+ */
 #include<algorithm>
 #include<cctype>
 #include<cmath>
@@ -32,6 +35,12 @@ void addedge(int u, int v) {
     head[u] = tol++;
 }
 
+// 发现一个神奇的事情，以n = 2为例
+// 0 -(00)> 0
+// 0 -(01)> 1
+// 1 -(10)> 0(1)
+// 1 -(11)> 1(2)
+// 虽然先访问了边1，但最终结果和先访问边2再访问边1是一样一样的。
 bool dfs(int u) {
     //pr(u)
     for (int i = head[u]; ~i; i = edge[i].nxt) {
@@ -56,6 +65,7 @@ int main()
             memset(vis, 0, sizeof vis);
             tol = 0;
             up = 1 << (n - 1);
+            // 优先访问小的边
             for (int i = 0; i < up; ++i) {
                 addedge(i, (i << 1) + 1);
                 addedge(i, i << 1);

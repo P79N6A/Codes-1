@@ -1,3 +1,6 @@
+/* 题意：
+ * 添加一个消防站，使得所有房子到它最近的消防站的距离的最大值减少(PS:读边直到文件尾)
+ */
 #include<algorithm>
 #include<cctype>
 #include<cmath>
@@ -20,7 +23,7 @@ const int MAXN = 5e2 + 111;
 
 int fire[MAXN];
 int mp[MAXN][MAXN];
-int dis[MAXN];
+int dis[MAXN]; // 房子i到它最近消防站的距离
 bool is[MAXN];
 
 int main()
@@ -62,6 +65,7 @@ int main()
         mx = max(mx, mi);
     }
     int ans = 1;
+    // 枚举新消防站
     for (int i = 1; i <= m; ++i) {
         if (is[i]) continue;
         int temp = 0;

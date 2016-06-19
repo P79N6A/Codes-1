@@ -1,3 +1,6 @@
+/* 题意：
+ * 求从s到t的最短时间，期间道路会开放和关闭
+ */
 #include<algorithm>
 #include<cctype>
 #include<cmath>
@@ -41,8 +44,8 @@ void spfa(int s, int t) {
             int v = p.v, t = p.t;
             for (int j = 0; j < p.time.size(); j += 2) {
                 int open = p.time[j], close = p.time[j + 1];
-                int base = max(dis[u], open);
-                if (base + t > close) continue;
+                int base = max(dis[u], open); // 等到开放时间进入
+                if (base + t > close) continue; // 从开放时间进入但无法出来
                 if (dis[v] > base + t) {
                     dis[v] = base + t;
                     if (!in[v]) {
@@ -74,7 +77,7 @@ int main()
             P p;
             int cnt = 0;
             while (ss >> temp[cnt]) ++cnt;
-            p.time.push_back(0);
+            p.time.push_back(0); // 添加开放时间,这样偶数是开放，奇数是关闭
             for (int i = 3; i < cnt; ++i) p.time.push_back(temp[i]);
             p.time.push_back(INF);
             p.v = temp[1], p.t = temp[2];

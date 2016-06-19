@@ -1,3 +1,6 @@
+/* 题意：
+ * 输出字典序最小的数字串，使得每向右移动一位构成的n个数是全排列中的数
+ */
 #include<algorithm>
 #include<cctype>
 #include<cmath>

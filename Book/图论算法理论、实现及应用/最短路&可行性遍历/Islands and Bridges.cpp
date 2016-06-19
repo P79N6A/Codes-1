@@ -1,3 +1,6 @@
+/* 题意：
+ * 找出图中的哈密顿回路值和个数
+ */
 #include<algorithm>
 #include<cctype>
 #include<cmath>
@@ -18,7 +21,7 @@ using namespace std;
 const int INF = 0x7f7f7f7f;
 const int MAXN = 1 << 14;
 
-ll dp[MAXN][15][15];
+ll dp[MAXN][15][15]; // dp[x][u][v]: 已经访问了x，前两个点为u, v的最大值
 ll way[MAXN][15][15];
 ll val[15];
 bool mp[15][15];

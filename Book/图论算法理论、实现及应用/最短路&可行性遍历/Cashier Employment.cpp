@@ -1,3 +1,6 @@
+/* 题意：
+ * 雇佣最少的人，使得每个时段的人数要求都能满足，每个被雇佣的人工作8小时
+ */
 #include<algorithm>
 #include<cctype>
 #include<cmath>
@@ -35,16 +38,20 @@ void addedge(int u, int v, int w) {
 void build(int ans) {
     tol = 0;
     memset(head, -1, sizeof head);
+    // 每个时段可雇佣人数 0 ~ have[i]
     for (int i = 1; i <= 24; ++i) {
         addedge(i, i - 1, 0);
         addedge(i - 1, i, have[i]);
     }
+    // 1 ~ 8 这个时段需要的人数 <= ans - hire[i] (i ~ i + 16 至少得雇佣hire[i])
     for (int i = 1; i < 8; ++i) {
         addedge(i, i + 16, ans - hire[i]);
     }
+    // 8 ~ 24 这个时段需要的人数 >= hire[i]
     for (int i = 8; i <= 24; ++i) {
         addedge(i, i - 8, -hire[i]);
     }
+    // 0 ~ 24 雇佣量肯定 >= ans
     addedge(24, 0, -ans);
 }
 

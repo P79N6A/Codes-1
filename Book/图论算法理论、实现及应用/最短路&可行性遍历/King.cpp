@@ -1,3 +1,6 @@
+/* 题意：
+ * 能否构造出符合条件要求的序列？
+ */
 #include<algorithm>
 #include<cctype>
 #include<cmath>
@@ -21,7 +24,7 @@ const int MAXN = 111;
 struct P {
     int v, w;
 };
-vector<P> G[MAXN];
+vector<P> G[MAXN]; // 图中点代表的意思为：到i位置的序列和
 int dis[MAXN], n;
 int num[MAXN];
 bool in[MAXN];
