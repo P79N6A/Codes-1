@@ -43,7 +43,7 @@ void build(int l, int r, int rt) {
     sum[rt] = sum[rt << 1] + sum[rt << 1 | 1];
 }
 
-void push_down(int l, int r, int rt) {
+void push_down(ll l, ll r, int rt) {
     int mid = l + r >> 1;
     if (lazy[rt].change != -1) {
         sum[rt << 1] = lazy[rt].change * (mid - l + 1);
@@ -71,7 +71,7 @@ void push_down(int l, int r, int rt) {
     lazy[rt].init();
 }
 
-void update(int L, int R, int val, int l, int r, int rt) {
+void update(int L, int R, ll val, ll l, ll r, int rt) {
     //pr(L)pr(R)pr(val)
     if (L <= l && r <= R) {
         lazy[rt].add += val;
@@ -86,7 +86,7 @@ void update(int L, int R, int val, int l, int r, int rt) {
     sum[rt] = sum[rt << 1] + sum[rt << 1 | 1];
 }
 
-void update2(int L, int R, int val, int l, int r, int rt) {
+void update2(int L, int R, ll val, ll l, ll r, int rt) {
     if (L <= l && r <= R) {
         /*pr(val*(l - L + 1))
         pr(l)
@@ -105,7 +105,7 @@ void update2(int L, int R, int val, int l, int r, int rt) {
     sum[rt] = sum[rt << 1] + sum[rt << 1 | 1];
 }
 
-void update3(int L, int R, int val, int l, int r, int rt) {
+void update3(int L, int R, ll val, ll l, ll r, int rt) {
     //pr(l)pr(r)pr(L)pr(R)
     if (L <= l && r <= R) {
         lazy[rt].init();

@@ -1,100 +1,66 @@
-#include<iostream>
 #include<algorithm>
-#include<cstdio>
-#include<cmath>
-#include<cstring>
-#include<string>
-#include<vector>
 #include<cctype>
-#include<set>
+#include<cmath>
+#include<cstdio>
+#include<cstring>
+#include<iomanip>
+#include<iostream>
 #include<map>
 #include<queue>
-#include<stack>
-#include<iomanip>
+#include<set>
 #include<sstream>
+#include<stack>
+#include<string>
 #define ll long long
-#define inf 0x3f3f3f3f
+#define pr(x) cout << #x << " = " << (x) << '\n';
 using namespace std;
-const int MOD= 72807249;
-const int maxn = 200010;
-const int maxm = 2e6+10;
-struct Edge{
-   ll a,b;
-}numb[maxn];
-struct Node{
-    ll l , r;
-    ll sum;
-}tree[2*maxn+100];
-ll ans = 1;
-void build(ll l,ll r,ll cur){
-    if(l > r) return ;
-    tree[cur].l=l;
-    tree[cur].r=r;
-   // tree[cur].flag=false;
-    if(l==r){
-        if (numb[l].a==1) tree[cur].sum = numb[l].b%MOD;
-        else tree[cur].sum = 1;
-        return ;
-    }
-    build(l,(l+r)>>1,cur*2);
-    build(((l+r)>>1)+1,r,cur*2+1);
-    tree[cur].sum = (tree[cur*2].sum%MOD)*(tree[cur*2+1].sum%MOD);
-    tree[cur].sum %= MOD;
-}
-void update(ll l,ll r,ll cur)
+
+const int INF = 0x7f7f7f7f;
+const int MAXN = 1e6 + 111;
+
+char s[4] = "IDQ";
+
+bool has[MAXN];
+
+int main()
 {
-    if (tree[cur].l > r || tree[cur].r < l) return;
-    if (tree[cur].l >= l && tree[cur].r <= r)
-    {
-        tree[cur].sum = 1;
-        return;
-    }
-    update(l,r,cur*2);
-    update(l,r,cur*2+1);
-    tree[cur].sum = (tree[cur*2].sum%MOD)*(tree[cur*2+1].sum%MOD);
-    tree[cur].sum %= MOD;
-}
-void query(ll l,ll r,ll cur)
-{
-     if(tree[cur].l > r || tree[cur].r < l) return;
-     if(tree[cur].l >= l && tree[cur].r <= r){
-            ans *= tree[cur].sum;
-            ans %= MOD;
-            return;
-     }
-    query(l,r,cur*2);
-    query(l,r,cur*2+1);
-}
-int main(){
-#ifdef GooZy
-    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
+    #ifdef GooZy
+    freopen("C:\\Users\\apple\\Desktop\\in.txt", "w", stdout);
     #endif
-    int T,n;
-    scanf("%d",&T);
-    while(T--)
-    {
-        scanf("%d",&n);
-        for(int i = 1; i <= n; i++)
-        {
-           scanf("%lld %lld",&numb[i].a,&numb[i].b);
+    srand((unsigned)time(NULL));
+    int n = rand() % 100000 + 1;
+    cout << n << '\n';
+    for (int i = 0; i < n;) {
+        int op = rand() % 3;
+        if (op == 0) {
+            int x = rand() % 10000 + 1;
+            if (!has[x]) {
+                has[x] = 1;
+                cout << s[0] << ' ' << x << '\n';
+                ++i;
+            }
         }
-        build(1,n,1);
-        ans = 1;
-        for(int i = 1; i <= n; i++)
-        {
-           if (numb[i].a == 1)
-           {
-               ans *= (numb[i].b%MOD);
-               ans %= MOD;
-           }
-           else
-           {
-                update(numb[i].b,numb[i].b,1);
-                ans = 1;
-                query(1,i,1);  //cout<<l << " "<<r<<" "<<ans <<endl;
-           }
-            printf("%lld\n",ans);
+        else if (op == 1) {
+            int a = rand() % 10000 + 1, b = rand() % 10000 + 1;
+            if (a > b) swap(a, b);
+            for (int j = a; j <= b; ++j) has[j] = 0;
+            cout << s[1] << ' ' << a << ' ' << b << '\n';
+            ++i;
+        }
+        else {
+            int x = rand() % 10000 + 1;
+            bool flag = 0;
+            for (int i = 1; i <= x; ++i) {
+                if (has[i]) {
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag) {
+                cout << s[2] << ' ' << x << '\n';
+                ++i;
+            }
         }
     }
-	return 0;
+    return 0;
 }
