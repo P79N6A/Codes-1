@@ -16,18 +16,29 @@
 using namespace std;
 
 const int INF = 0x7f7f7f7f;
-const int MAXN = 1e6 + 111;
+const int MAXN = 211;
+
+int dp[MAXN][MAXN];
 
 int main()
 {
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    double ans = 2, base = 1;
-    for (double i = 2; i <= 100000; ++i) {
-        ans += base / i;
-        base = base / i;
+    int n; cin >> n;
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= i; ++j) {
+            cin >> dp[i][j];
+        }
     }
-    printf("%.1000f\n", ans);
+    for (int i = 2; i <= n; ++i) {
+        for (int j = 1; j <= i; ++j)
+            dp[i][j] += max(dp[i - 1][j], dp[i - 1][j - 1]);
+    }
+    int ans = 0;
+    for (int i = 1; i <= n; ++i) {
+        ans = max(ans, dp[n][i]);
+    }
+    cout << ans << '\n';
     return 0;
 }
