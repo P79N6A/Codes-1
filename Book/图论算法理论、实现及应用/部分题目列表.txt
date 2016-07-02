@@ -1,0 +1,23 @@
+最短路
+ZOJ 1232 Adventure of Super Mario (DP + 最短路)
+ZOJ 2027 Travelling Fee (免去一条最大费用道路的最短路)
+ZOJ 1455 Schedule Problem
+
+网络流
+让人恐慌的房间(Panic Room), ZOJ2788
+项目发展规划(Develop)
+
+
+图的连通性问题
+POJ1523 SPF 结点(SPF) (删除割点后有多少个连通分量)
+POJ1966 有线电视网络(Cable TV Network) (删除最少的顶点使得网络不连通)
+POI1999 仓库管理员 (推箱子的最少步数！！！)
+ZOJ2532 实习(Internship) (哪些边一扩大，流量就变大？) <缩点，点内容量为连通块中所有边的最小值，然后从汇点往后判断？>
+POJ3694 网络(Network) (每次添加新边后，图中桥的个数有多少个？) <缩点，不在同一个连通块才要计算，一个问题：怎么判断这连通块是否相邻？>
+POJ2762 从 u 到 v 或从 v 到 u(Going from u to v or from v to u?)
+POJ3160 圣诞老人(Father Christmas flymouse) (从某点出发最大的权值)
+POJ1904 国王的要求(King's Quest) (可以结婚的个数)
+POJ3592 瞬间转移(Instantaneous Transference) (采矿)
+
+平面图及图的着色问题
+着色问题(Coloration Problem), UVA2029
