@@ -1,8 +1,11 @@
+/*
+ 画个图，标出每个格点代表的数，很快就能看出是组合数了= =
+ 然后标记上组合数，就发现是Cn+m取n了。
+*/
 #include<algorithm>
 #include<cctype>
 #include<cmath>
 #include<cstdio>
-#include<cstdlib>
 #include<cstring>
 #include<iomanip>
 #include<iostream>
@@ -20,20 +23,27 @@ using namespace std;
 const int INF = 0x7f7f7f7f;
 const int MAXN = 1e6 + 111;
 
+ll C(ll a, ll b) {
+    if (b > a - b) b = a - b;
+    ll ret = 1;
+    int cnt = 0;
+    for (ll i = a; i > a - b; --i) {
+        ret *= i;
+        if (++cnt <= b) {
+            ret /= cnt;
+        }
+    }
+    return ret;
+}
+
 int main()
 {
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    int dp[10][10];
-    int n, m;
-    scanf("%d%d", &n, &m);
-    for (int i = 0; i <= max(n, m); ++i) dp[i][0] = dp[0][i] = 1;
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= m; ++j) {
-            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
-        }
+    ll n, m;
+    while (cin >> n >> m && (n | m)) {
+        cout << C(n + m, n) << '\n';
     }
-    prln(dp[n][m])
     return 0;
 }

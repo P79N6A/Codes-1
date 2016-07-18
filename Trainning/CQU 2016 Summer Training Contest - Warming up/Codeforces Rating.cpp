@@ -2,7 +2,6 @@
 #include<cctype>
 #include<cmath>
 #include<cstdio>
-#include<cstdlib>
 #include<cstring>
 #include<iomanip>
 #include<iostream>
@@ -13,8 +12,7 @@
 #include<stack>
 #include<string>
 #define ll long long
-#define pr(x) cout << #x << " = " << (x) << "  ";
-#define prln(x) cout << #x << " = " << (x) << '\n';
+#define pr(x) cout << #x << " = " << (x) << '\n';
 using namespace std;
 
 const int INF = 0x7f7f7f7f;
@@ -25,15 +23,17 @@ int main()
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    int dp[10][10];
-    int n, m;
-    scanf("%d%d", &n, &m);
-    for (int i = 0; i <= max(n, m); ++i) dp[i][0] = dp[0][i] = 1;
-    for (int i = 1; i <= n; ++i) {
-        for (int j = 1; j <= m; ++j) {
-            dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+    int t, x, r, n;
+    cin >> t;
+    while (t --) {
+        cin >> n >> r;
+        int sum = 1500;
+        while (n --) {
+            cin >> x;
+            sum += x;
         }
+        if (sum == r) cout << "Correct\n";
+        else cout << "Bug\n";
     }
-    prln(dp[n][m])
     return 0;
 }

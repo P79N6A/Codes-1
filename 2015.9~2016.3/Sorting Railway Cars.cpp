@@ -22,23 +22,24 @@ using namespace std;
 const int INF = 0x7f7f7f7f;
 const int MAXN = 1e5 + 111;
 int num[MAXN], dp[MAXN];
+int pos[MAXN];
 
 int main()
 {
+    #ifdef GooZy
+    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
+    #endif
     int n; cin >> n;
-    for (int i = 0; i < n; ++i) cin >> num[i], dp[i] = 1;
+    for (int i = 0; i < n; ++i) cin >> num[i], dp[i] = 1, pos[num[i]] = i;
 
     int ans = 1;
-    for (int i = 1; i < n; ++i)
-        for (int j = 0; j < i; ++j)
-        {
-            if (num[j] + 1 == num[i])
-            {
-                dp[i] += dp[j];
-                ans = max(ans, dp[i]);
-                break;
-            }
+    for (int i = n - 1; i >= 0; --i) {
+        int v = num[i] + 1;
+        if (pos[v] > i) {
+            dp[i] += dp[pos[v]];
         }
+        ans = max(ans, dp[i]);
+    }
 
     cout << n - ans << '\n';
     return 0;

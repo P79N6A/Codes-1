@@ -1,69 +1,71 @@
-#include <iostream>
-#include <cstdio>
-#include <queue>
-#include <vector>
-#include <cstring>
-#include <string>
-#include <cmath>
-#include <map>
-#include <set>
-#include <algorithm>
+#include<algorithm>
+#include<cctype>
+#include<cmath>
+#include<cstdio>
+#include<cstring>
+#include<iomanip>
+#include<iostream>
+#include<map>
+#include<queue>
+#include<set>
+#include<sstream>
+#include<stack>
+#include<string>
+#define ll long long
+#define pr(x) cout << #x << " = " << (x) << '\n';
 using namespace std;
+
+const int INF = 0x7f7f7f7f;
 const int MAXN = 1e5 + 111;
-typedef long long ll;
 
-int n, m, k, len;
-int pre[MAXN];
-bool flag;
-bool vis[MAXN];
-vector<int> e[MAXN];
+int n, m, k, u, v;
+vector<int> G[MAXN];
+int vis[MAXN];
+int pos[MAXN];
+int finish = 0;
+int ans[MAXN], cnt = 0;
 
-void dfs(int node, int cnt, int f)
-{
-    if (!flag)
-    {
-        pre[len++] = node;
-        for (int i = 0; i < e[node].size(); ++i)
-        {
-            int& t = e[node][i];
-            if (t == f && cnt >= k + 1)
-            {
-                flag = 1;
-                return;
-            }
-            if (t == f)
-                return;
-            if (!vis[t])
-            {
-                vis[t] = 1;
-                dfs(t, cnt + 1, f);
+bool dfs(int u, int f) {
+    vis[u] = -1;
+    ans[cnt++] = u;
+    pos[u] = cnt - 1;
+//    printf("%d <- %d, %d \n", u, f, cnt);
+    for (int i = 0; i < G[u].size(); ++i) {
+        int v = G[u][i];
+        if (v == f || vis[v] == 1) continue;
+        if (vis[v] == -1 && cnt - pos[v] >= k + 1) {
+            finish = v;
+            return 1;
+        }
+        if (!vis[v]) {
+            if (dfs(v, u)) {
+                return 1;
             }
         }
     }
+    --cnt;
+    return 0;
 }
 
-int main() {
+int main()
+{
+    #ifdef GooZy
+    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
+    #endif
     scanf("%d%d%d", &n, &m, &k);
-    int a, b;
-    for (int i = 0; i < m; ++i)
-    {
-        scanf("%d %d", &a, &b);
-        e[a].push_back(b);
-        e[b].push_back(a);
+    while (m --) {
+        scanf("%d%d", &u, &v);
+        G[u].push_back(v);
+        G[v].push_back(u);
     }
-    for (int i = 1; i <= n; ++i)
-    {
-        if (!flag)
-        {
-            memset(vis, 0, sizeof vis);
-            len = 0;
-            vis[i] = 1;
-            dfs(i, 1, i);
+    for (int i = 1; i <= n; ++i) {
+        if (!vis[i] && dfs(i, i)) {
+            break;
         }
     }
-    printf("%d\n", len);
-    for (int i = 0; i < len - 1; ++i)
-        printf("%d ", pre[i]);
-    printf("%d\n", pre[len - 1]);
+    printf("%d\n", cnt - pos[finish]);
+    for (int i = pos[finish]; i < cnt; ++i) {
+        printf("%d ", ans[i]);
+    }
     return 0;
 }
