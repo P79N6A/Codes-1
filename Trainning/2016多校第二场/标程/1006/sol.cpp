@@ -106,9 +106,6 @@ public:
 } sol;
 
 int main() {
-#ifdef GooZy
-    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
-    #endif
   int T; scanf("%d", &T);
   for (int cas = 1; cas <= T; ++cas) sol.solve();
   return 0;

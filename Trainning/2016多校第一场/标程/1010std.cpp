@@ -99,9 +99,6 @@ lblMatch:
 }
 int mapping[N];
 int main(){
-    #ifdef GooZy
-    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
-    #endif
     int size = 8 << 20;
     char *p = (char*)malloc(size) + size;
     //__asm__("movl %0, %%esp\n" :: "r"(p));
