@@ -19,8 +19,9 @@ using namespace std;
 const int INF = 0x7f7f7f7f;
 const int MAXN = 1e5 + 111;
 
-int a[MAXN], dis[MAXN];
-ll l[MAXN], r[MAXN];
+ll a[MAXN], dis[MAXN];
+ll record[MAXN];
+int ans[MAXN * 2], cnt;
 
 int main()
 {
@@ -28,27 +29,38 @@ int main()
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
     int n; scanf("%d", &n);
-    ll fuel = 0, sum = 0;
+    for (int i = 0; i < n; ++i) scanf("%I64d", &a[i]);
+    for (int i = 0; i < n; ++i) scanf("%I64d", &dis[i]);
+    ll mi = 1e15, sum = 0;
     for (int i = 0; i < n; ++i) {
-        scanf("%d", &a[i]);
-        fuel += a[i];
-        r[i] = l[i] = -a[i];
+        if (i) sum += a[i];
+        record[i] = sum;
+        sum -= dis[i];
+        mi = min(mi, sum);
     }
+    record[0] = 0;
     for (int i = 0; i < n; ++i) {
-        scanf("%d", &dis[i]);
-        sum += dis[i];
-    }
-    for (int i = 0; i < n; ++i) {
-        r[0] += a[i];
-        if (r[0] < dis[i]) {
-            r[0] = dis[i];
+        if (a[i] >= -mi + record[i]) {
+            ans[cnt++] = i + 1;
         }
     }
-    vector<int> ans;
-    for (int i = 0; i < n; ++i) {
-        if (a[i] >= l[i] || a[i] >= r[i]) ans.push_back(i + 1);
+
+    mi = 1e15, sum = 0;
+    for (int i = n - 1; i >= 0; --i) {
+        if (i != n - 1) sum += a[i];
+        record[i] = sum;
+        sum -= dis[(i - 1 + n) % n];
+        mi = min(mi, sum);
     }
-    printf("%d\n", ans.size());
-    for (int i = 0; i < ans.size(); ++i) printf("%d ", ans[i]);
+    record[n - 1] = 0;
+    for (int i = n - 1; i >= 0; --i) {
+        if (a[i] >= -mi + record[i]) {
+            ans[cnt++] = i + 1;
+        }
+    }
+    sort(ans, ans + cnt);
+    cnt = unique(ans, ans + cnt) - ans;
+    printf("%d\n", cnt);
+    for (int i = 0; i < cnt; ++i) printf("%d ", ans[i]);
     return 0;
 }

@@ -12,31 +12,28 @@
 #include<stack>
 #include<string>
 #define ll long long
-#define pii pair<int, int>
 #define pr(x) cout << #x << " = " << (x) << "  ";
 #define prln(x) cout << #x << " = " << (x) << '\n';
 using namespace std;
 
 const int INF = 0x7f7f7f7f;
-const int MAXN = 1e3 + 111;
-
-int x[MAXN];
-pii low[MAXN * MAXN], up[MAXN * MAXN];
-
-void preWork(int n) {
-    for (int i = 0; i < n; ++i)
-}
+const int MAXN = 1e6 + 111;
 
 int main()
 {
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    int t, n, m; scanf("%d", &t);
-    while (t --) {
-        scanf("%d%d", &n, &m);
-        for (int i = 0; i < n; ++i) scanf("%d", &x[i]);
-        preWork(n);
+    ll d, k, a, b, t;
+    cin >> d >> k >> a >> b >> t;
+    if (a * k * b > k + t) {
+        ll mx = d / k - (d % k == 0);
+        ll lef = d - mx * k;
+        ll ans = mx * k * a + max((ll)0, mx - 1) * t;
+        ll time1 = t + lef * a;
+        ll time2 = lef * b;
+        cout << ans + min(time1, time2) << '\n';
     }
+    else cout << k * a + max((ll)0, d - k) * b << '\n';
     return 0;
 }

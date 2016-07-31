@@ -19,18 +19,28 @@ using namespace std;
 const int INF = 0x7f7f7f7f;
 const int MAXN = 1e6 + 111;
 
+int a[MAXN];
+
 int main()
 {
     #ifdef GooZy
-    freopen("C:\\Users\\apple\\Desktop\\in.txt", "w", stdout);
+    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    cout << 1 << '\n';
-    cout << 1000 << ' ' << 1000 << '\n';
-    for (int i = 1; i <= 1000; ++i) {
-        for (int j = 1; j <= 1000; ++j) {
-            cout << "#";
+    int n; cin >> n;
+    for (int i = 0; i < n; ++i) cin >> a[i];
+    int ans = 0, mx = 0, len = 0;
+    for (int i = 0; i < n; ++i) {
+        if (a[i] > mx) {
+            mx = a[i];
+            ++len;
         }
-        cout << '\n';
+        else {
+            ans = max(ans, len);
+            mx = a[i];
+            len = 1;
+        }
     }
+    ans = max(ans, len);
+    cout << ans << '\n';
     return 0;
 }

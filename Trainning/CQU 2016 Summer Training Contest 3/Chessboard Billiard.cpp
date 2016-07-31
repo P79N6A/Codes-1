@@ -22,15 +22,12 @@ const int MAXN = 1e6 + 111;
 int main()
 {
     #ifdef GooZy
-    freopen("C:\\Users\\apple\\Desktop\\in.txt", "w", stdout);
+    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    cout << 1 << '\n';
-    cout << 1000 << ' ' << 1000 << '\n';
-    for (int i = 1; i <= 1000; ++i) {
-        for (int j = 1; j <= 1000; ++j) {
-            cout << "#";
-        }
-        cout << '\n';
-    }
+    ll n, m;
+    cin >> n >> m;
+    --n, --m;
+    if (n > m) swap(n, m);
+    cout << __gcd(n, m) + 1 << endl;
     return 0;
 }
