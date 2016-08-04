@@ -16,7 +16,8 @@
 #define prln(x) cout << #x << " = " << (x) << '\n';
 using namespace std;
 
-const int MAXN = 200005 ;
+const int INF = 0x7f7f7f7f;
+const int MAXN = 1e5 + 111;
 const int N = 26 ;
 
 struct Palindromic_Tree {
@@ -53,61 +54,44 @@ struct Palindromic_Tree {
         return x ;
     }
 
-    void add ( int c ) {
+    int add ( int c ) {
         c -= 'a' ;
         S[++ n] = c ;
+        int ret = 0;
         int cur = get_fail ( last ) ;//通过上一个回文串找这个回文串的匹配位置
-        // 每增加一个新结点，本质不同回文串个数+1
         if ( !next[cur][c] ) {//如果这个回文串没有出现过，说明出现了一个新的本质不同的回文串
             int now = newnode ( len[cur] + 2 ) ;//新建节点
             fail[now] = next[get_fail ( fail[cur] )][c] ;//和AC自动机一样建立fail指针，以便失配后跳转
             next[cur][c] = now ;
             num[now] = num[fail[now]] + 1 ;
+            ++ret;
         }
         last = next[cur][c] ;
         cnt[last] ++ ;
+        return ret;
     }
 
     void count () {
         for ( int i = p - 1 ; i >= 0 ; -- i ) cnt[fail[i]] += cnt[i] ;
         //父亲累加儿子的cnt，因为如果fail[v]=u，则u一定是v的子回文串！
     }
-}tree[2];
+}tree ;
 
-
-char s[2][MAXN];
-ll ans;
-
-void dfs(int x, int y) {
-    for (int i = 0; i < 26; ++i) {
-        int u = tree[0].next[x][i], v = tree[1].next[y][i];
-        if (u && v) {
-            ans += (ll)tree[0].cnt[u] * tree[1].cnt[v];
-            dfs(u, v);
-        }
-    }
-}
+char s[MAXN];
 
 int main()
 {
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    for (int t, kase = scanf("%d", &t); kase <= t; ++kase) {
-        scanf("%s%s", s[0], s[1]);
-        int len[2];
-        for (int i = 0; i < 2; ++i) {
-            tree[i].init();
-            len[i] = strlen(s[i]);
-            for (int j = 0; j < len[i]; ++j) {
-                tree[i].add(s[i][j]);
-            }
-            tree[i].count();
-        }
-        ans = 0;
-        dfs(0, 0);
-        dfs(1, 1);
-        printf("Case #%d: %lld\n", kase, ans);
+    scanf("%s", s);
+    int len = strlen(s);
+    tree.init();
+    int ans = 0;
+    for (int i = 0; i < len; ++i) {
+        printf("%d", ans += tree.add(s[i]));
+        if (i != len - 1) putchar(' ');
+        else putchar('\n');
     }
     return 0;
 }

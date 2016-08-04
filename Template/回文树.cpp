@@ -1,22 +1,11 @@
-#include<algorithm>
-#include<cctype>
-#include<cmath>
-#include<cstdio>
-#include<cstring>
-#include<iomanip>
-#include<iostream>
-#include<map>
-#include<queue>
-#include<set>
-#include<sstream>
-#include<stack>
-#include<string>
-#define ll long long
-#define pr(x) cout << #x << " = " << (x) << "  ";
-#define prln(x) cout << #x << " = " << (x) << '\n';
-using namespace std;
+/*
+  1.统计到某个前缀为止的本质不同回文串个数
+    新增结点则代表多了一个
+  2.统计两个字符串中相同的字符串个数(可重复）
+    建立两棵树，count之后，分别从结点0和结点1一起dfs遍历，ans += cnt[0][u] * cnt[1][v]
+ */
 
-const int MAXN = 200005 ;
+const int MAXN = 100005 ;
 const int N = 26 ;
 
 struct Palindromic_Tree {
@@ -72,42 +61,4 @@ struct Palindromic_Tree {
         for ( int i = p - 1 ; i >= 0 ; -- i ) cnt[fail[i]] += cnt[i] ;
         //父亲累加儿子的cnt，因为如果fail[v]=u，则u一定是v的子回文串！
     }
-}tree[2];
-
-
-char s[2][MAXN];
-ll ans;
-
-void dfs(int x, int y) {
-    for (int i = 0; i < 26; ++i) {
-        int u = tree[0].next[x][i], v = tree[1].next[y][i];
-        if (u && v) {
-            ans += (ll)tree[0].cnt[u] * tree[1].cnt[v];
-            dfs(u, v);
-        }
-    }
-}
-
-int main()
-{
-    #ifdef GooZy
-    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
-    #endif
-    for (int t, kase = scanf("%d", &t); kase <= t; ++kase) {
-        scanf("%s%s", s[0], s[1]);
-        int len[2];
-        for (int i = 0; i < 2; ++i) {
-            tree[i].init();
-            len[i] = strlen(s[i]);
-            for (int j = 0; j < len[i]; ++j) {
-                tree[i].add(s[i][j]);
-            }
-            tree[i].count();
-        }
-        ans = 0;
-        dfs(0, 0);
-        dfs(1, 1);
-        printf("Case #%d: %lld\n", kase, ans);
-    }
-    return 0;
-}
+} ;
