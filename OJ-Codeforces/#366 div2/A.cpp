@@ -11,7 +11,6 @@
 #include<sstream>
 #include<stack>
 #include<string>
-#include<complex>
 #define ll long long
 #define pr(x) cout << #x << " = " << (x) << "  ";
 #define prln(x) cout << #x << " = " << (x) << '\n';
@@ -25,5 +24,21 @@ int main()
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
+    int n;
+    cin >> n;
+    if (n % 2) {
+        int x = (n - 1) / 2;
+        for (int i = 0; i < x; ++i) {
+            cout << "I hate that I love that ";
+        }
+        cout << "I hate it\n";
+    }
+    else {
+        int x = (n - 2) / 2;
+        for (int i = 0; i < x; ++i) {
+            cout << "I hate that I love that ";
+        }
+        cout << "I hate that I love it\n";
+    }
     return 0;
 }

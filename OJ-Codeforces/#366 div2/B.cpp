@@ -11,7 +11,6 @@
 #include<sstream>
 #include<stack>
 #include<string>
-#include<complex>
 #define ll long long
 #define pr(x) cout << #x << " = " << (x) << "  ";
 #define prln(x) cout << #x << " = " << (x) << '\n';
@@ -24,6 +23,14 @@ int main()
 {
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
+    freopen("C:\\Users\\apple\\Desktop\\out.txt", "w", stdout);
     #endif
+    int n, x, sum = 0; scanf("%d", &n);
+    for (int i = 0; i < n; ++i) {
+        scanf("%d", &x);
+        sum += (1 - x % 2);
+        if (sum % 2) printf("1\n");
+        else printf("2\n");
+    }
     return 0;
 }

@@ -32,18 +32,29 @@ int main()
     ios_base::sync_with_stdio(0);
     cin >> n >> k;
     int x;
-    for (int i = 0; i < n; ++i) cin >> x, G[i].push_back(x);
-    for (int i = 0; i < n; ++i) cin >> x, to[i][0] = x, dp[i][0] = x, mi[i][0] = x;
+    for (int i = 0; i < n; ++i) cin >> x, to[i][0] = x;
+    for (int i = 0; i < n; ++i) cin >> x, dp[i][0] = x, mi[i][0] = x;
     for (int i = 1; i < 40; ++i) {
         for (int j = 0; j < n; ++j) {
             dp[j][i] = dp[j][i - 1] + dp[to[j][i - 1]][i - 1];
-            mi[j][i] = min(dp[j][i - 1], dp[to[j][i - 1]][i - 1]);
+            mi[j][i] = min(mi[j][i - 1], mi[to[j][i - 1]][i - 1]);
             to[j][i] = to[to[j][i - 1]][i - 1];
         }
     }
     for (int i = 0; i < n; ++i) {
         ll ans1 = 0, ans2 = 1e9;
-        ll temp = k;
+        int u = i;
+        ll temp = k, step = 1;
+        while (temp) {
+            if (temp & 1) {
+                ans1 += dp[u][step - 1];
+                ans2 = min(ans2, mi[u][step - 1]);
+                u = to[u][step - 1];
+            }
+            temp >>= 1;
+            ++step;
+        }
+        cout << ans1 << ' ' << ans2 << '\n';
     }
     return 0;
 }

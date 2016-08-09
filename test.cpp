@@ -1,28 +1,74 @@
-#include<algorithm>
-#include<cctype>
-#include<cmath>
-#include<cstdio>
-#include<cstring>
-#include<iomanip>
-#include<iostream>
-#include<map>
-#include<queue>
-#include<set>
-#include<sstream>
-#include<stack>
-#include<string>
-#define ll long long
-#define pr(x) cout << #x << " = " << (x) << "  ";
-#define prln(x) cout << #x << " = " << (x) << '\n';
+#include <cstdio>
+#include <cassert>
+#include <algorithm>
+#include <iostream>
+#include <ctime>
 using namespace std;
 
-const int INF = 0x7f7f7f7f;
-const int MAXN = 1e6 + 111;
+long long cnt[20][20];
+int mxi;
+int d[20];
+long long ans;
+int x;
+
+void dfs(int i, int cx, long long sum)
+{
+    if (i == mxi)
+    {
+        if (ans > sum || (ans == sum && x > cx))
+            ans = sum, x = cx;
+    }
+    else
+        for (d[i] = 0; d[i] < 2; ++d[i])
+        {
+            long long nsum = sum + cnt[i][i];
+            for (int j = 0; j < i; ++j)
+                if (d[i] ^ d[j])
+                    nsum -= cnt[i][j];
+                else
+                    nsum += cnt[i][j];
+            dfs(i + 1, cx | (d[i] << i),  nsum);
+        }
+}
 
 int main()
 {
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
+    int T;
+    scanf("%d", &T);
+    while (T--)
+    {
+        int n;
+        scanf("%d", &n);
+        for (int i = 0; i < 20; ++i)
+            for (int j = 0; j <= i; ++j)
+                cnt[i][j] = 0;
+        int a;
+        scanf("%d", &a);
+        for (int i = 1; i < n; ++i)
+        {
+            int b;
+            scanf("%d", &b);
+            int high = 19;
+            while (high >= 0 && ~(a ^ b) >> high & 1)
+                --high;
+            int mx = max(a, b);
+            int mi = min(a, b);
+            for (int j = high; j >= 0; --j)
+                cnt[high][j] += (mx >> j & 1) - (mi >> j & 1);
+            a = b;
+        }
+        mxi = 20;
+        while (mxi > 0 && !cnt[mxi - 1][mxi - 1])
+            --mxi;
+        for (int i = 0; i < 20; ++i)
+            for (int j = 0; j <= i; ++j)
+                cnt[i][j] <<= j;
+        ans = 1e18;
+        dfs(0, 0, 0);
+        printf("%d %lld\n", x, ans);
+    }
     return 0;
 }

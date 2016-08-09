@@ -26,14 +26,13 @@ int main()
     #endif
     ll d, k, a, b, t;
     cin >> d >> k >> a >> b >> t;
-    if (a * k * b > k + t) {
-        ll mx = d / k - (d % k == 0);
-        ll lef = d - mx * k;
-        ll ans = mx * k * a + max((ll)0, mx - 1) * t;
-        ll time1 = t + lef * a;
-        ll time2 = lef * b;
-        cout << ans + min(time1, time2) << '\n';
-    }
-    else cout << k * a + max((ll)0, d - k) * b << '\n';
+    ll mx = d / k - (d % k == 0);
+    ll lef = d - mx * k;
+    ll ans = mx * k * a + max((ll)0, mx - 1) * t;
+    ll time1 = (mx != 0) * t + lef * a;
+    ll time2 = lef * b;
+    ll ans1 = ans + min(time1, time2);
+    ll ans2 = min(k, d) * a + max((ll)0, d - k) * b;
+    cout << min(ans1, ans2) << endl;
     return 0;
 }
