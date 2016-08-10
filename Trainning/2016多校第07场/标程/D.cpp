@@ -67,9 +67,6 @@ void cal(int x)
 
 int main()
 {
-    #ifdef GooZy
-    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
-    #endif
 	int res, q, cn, x, y, z, top, i;
 	char cmd;
 	memset(cnt, -1, sizeof(cnt));
@@ -132,7 +129,7 @@ int main()
 				if (res == inf) printf("-1\n"); else printf("%d\n", res);
 			}
 		}
-		for (i=0; i<top; i++)
+		for (i=0; i<top; i++) 
 		{
 			D[tmp[i]] = 0;
 			memset(C[tmp[i]], 0, sizeof(C[tmp[i]]));
