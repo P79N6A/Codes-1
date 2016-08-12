@@ -23,9 +23,9 @@ bool dfs(int Q[], int u, int t)
 			if (type[i] == -t) return false;
 			if (type[i] == t && !dfs(Q, i, t)) return false;
 		}
-	type[u] = 0;	
+	type[u] = 0;
 	Q[s++] = u;
-	return true;	
+	return true;
 }
 
 bool valid(int Q[], int t)
@@ -47,6 +47,9 @@ int check(int x)
 
 int main()
 {
+    #ifdef GooZy
+    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
+    #endif
 	int u, x, i, j, k;
 	while (scanf("%d %d\n", &n, &m), n > 0)
 	{

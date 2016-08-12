@@ -17,16 +17,12 @@
 using namespace std;
 
 const int INF = 0x7f7f7f7f;
-const int MAXN = 1e6 + 111;
+const int MAXN = 1e5 + 111;
 
 int main()
 {
     #ifdef GooZy
-    //freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
+    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    string s;
-    cin >> s;
-    reverse(s.begin(), s.end());
-    prln(s)
     return 0;
 }
