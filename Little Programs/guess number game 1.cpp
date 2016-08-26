@@ -1,4 +1,4 @@
-*This is a guess nuber game.Created by Hugh&Zero&Seven.
+/*This is a guess nuber game.Created by Hugh&Zero&Seven.
 It is so hard to find a good way to identify 'guessNumber'
 between number and character until we found the function
 fflush(stdin).*/

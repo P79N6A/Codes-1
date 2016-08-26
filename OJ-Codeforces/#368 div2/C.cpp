@@ -24,5 +24,19 @@ int main()
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
+    ll n; cin >> n;
+    if (n == 1 || n == 2) {
+        cout << -1 << '\n';
+        return 0;
+    }
+    if (n % 2) {
+        ll nw = n * n;
+        cout << nw / 2 << ' ' << nw / 2 + 1 << '\n';
+    }
+    else {
+        n /= 2;
+        ll nw = n * n;
+        cout << nw - 1 << ' ' << nw + 1 << '\n';
+    }
     return 0;
 }

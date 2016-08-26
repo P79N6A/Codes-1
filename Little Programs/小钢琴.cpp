@@ -1,4 +1,4 @@
-/*This is a small piano.这是一个小钢琴哦~*/
+﻿/*This is a small piano.这是一个小钢琴哦~*/
 #include<stdio.h>
 #include<conio.h>    //非缓冲输入
 #include<stdlib.h>

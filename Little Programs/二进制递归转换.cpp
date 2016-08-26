@@ -1,4 +1,4 @@
-/*use recursion to convert the decimal number into
+﻿/*use recursion to convert the decimal number into
 binary number.(使用递归进行二进制转换）*/
 
 #include<stdio.h>

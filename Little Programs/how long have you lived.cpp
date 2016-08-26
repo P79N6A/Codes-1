@@ -1,4 +1,4 @@
-/*This is a program that can tell how long have you been 
+﻿/*This is a program that can tell how long have you been 
 lived in this wonderful world!   
                   Made In China.      Author: Seven */
 

@@ -24,5 +24,19 @@ int main()
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
+    int x, y;
+    cin >> x >> y;
+    if (x < 0 && y < 0) {
+        cout << x + y << ' ' << 0 << ' ' << 0 << ' ' << x + y << '\n';
+    }
+    else if (x < 0 && y > 0) {
+        cout << x - y << ' ' << 0 << ' ' << 0 << ' ' << y - x << '\n';
+    }
+    else if (x > 0 && y > 0) {
+        cout << 0 << ' ' << x + y << ' ' << x + y << ' ' << 0 << '\n';
+    }
+    else {
+        cout << 0 << ' ' << y - x << ' ' << x - y << ' ' << 0 << '\n';
+    }
     return 0;
 }

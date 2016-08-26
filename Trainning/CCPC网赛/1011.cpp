@@ -19,10 +19,26 @@ using namespace std;
 const int INF = 0x7f7f7f7f;
 const int MAXN = 1e6 + 111;
 
+bool vis[MAXN];
+
 int main()
 {
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
+    int t, kase = 0; cin >> t;
+    string s;
+    while (t --) {
+        cin >> s;
+        memset(vis, 0, sizeof vis);
+        for (int i = 0; i < s.length(); ++i) {
+            vis[s[i] - 'a'] = 1;
+        }
+        int ans = 0;
+        for (int i = 0; i < 26; ++i) {
+            if (vis[i]) ++ans;
+        }
+        printf("Case #%d: %d\n", ++kase, ans);
+    }
     return 0;
 }
