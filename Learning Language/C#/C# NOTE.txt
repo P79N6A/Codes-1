@@ -1,0 +1,5 @@
+1.读入一整行数字
+int []a = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+
+2.参数输出
+Console.Write("{0} ", b[i]);
