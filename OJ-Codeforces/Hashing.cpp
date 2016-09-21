@@ -17,17 +17,28 @@
 using namespace std;
 
 const int INF = 0x7f7f7f7f;
-const int MAXN = 1e6 + 111;
+const int MAXN = 1e5 + 11;
+
+ll dp[MAXN][300];
+int a[MAXN];
+ll mx[300];
 
 int main()
 {
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    float m = 345.678;
-    double n = 1.23456;
-    printf("%f, %f\n%e, %g\n%.2f, %5.4f\n", m, n, m, n, m, n);
-    double x = 1.0;
-    printf("%f\n", x);
+    int n; scanf("%d", &n);
+    for (int i = 1; i <= n; ++i) {
+        scanf("%x", &a[i]);
+    }
+    memset(dp, -1, sizeof dp);
+
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 0; j < 256; ++j) {
+
+        }
+    }
+    ll ans = 0;
     return 0;
 }

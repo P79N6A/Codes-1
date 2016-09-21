@@ -17,17 +17,20 @@
 using namespace std;
 
 const int INF = 0x7f7f7f7f;
-const int MAXN = 1e6 + 111;
+const int MAXN = 1e5 + 111;
+
+ll ans[MAXN];
 
 int main()
 {
-    #ifdef GooZy
-    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
-    #endif
-    float m = 345.678;
-    double n = 1.23456;
-    printf("%f, %f\n%e, %g\n%.2f, %5.4f\n", m, n, m, n, m, n);
-    double x = 1.0;
-    printf("%f\n", x);
+    ios_base::sync_with_stdio(0);
+    ans[1] = 2;
+    for (ll i = 2; i <= 1e5; ++i) {
+        ans[i] = i * (i + 1) * (i + 1) - (i - 1);
+    }
+    int n;
+    while (cin >> n) {
+        for (int i = 1; i <= n; ++i) cout << ans[i] << '\n';
+    }
     return 0;
 }

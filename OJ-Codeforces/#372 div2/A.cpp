@@ -24,10 +24,17 @@ int main()
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    float m = 345.678;
-    double n = 1.23456;
-    printf("%f, %f\n%e, %g\n%.2f, %5.4f\n", m, n, m, n, m, n);
-    double x = 1.0;
-    printf("%f\n", x);
+    ios_base::sync_with_stdio(0);
+    int ans = 0, n, c, x, last = 0;
+    cin >> n >> c;
+    for (int i = 0; i < n; ++i) {
+        cin >> x;
+        if (x - last <= c) {
+            ++ans;
+        }
+        else ans = 1;
+        last = x;
+    }
+    cout << ans << '\n';
     return 0;
 }

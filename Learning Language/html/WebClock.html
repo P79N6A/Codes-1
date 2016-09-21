@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <style type="text/css">
+        
+    </style>
+    <title>Web Clock</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="1000" height="120" >浏览器当前版本不支持canvas标签</canvas>
+
+    <script type="text/javascript">
+
+        var weekday = new Array(7)
+        weekday[0] = "星期天"
+        weekday[1] = "星期一"
+        weekday[2] = "星期二"
+        weekday[3] = "星期三"
+        weekday[4] = "星期四"
+        weekday[5] = "星期五"
+        weekday[6] = "星期六"
+
+        var canvas = document.getElementById('myCanvas');
+        var ctx = canvas.getContext('2d');
+        ctx.translate(400, 0);
+
+        // 直线宽度；直线颜色；画布中心；直线起点、终点；
+        function drawLine(width, color, centerX, centerY, deg, x1, y1, x2, y2) {
+            ctx.save();  // 保存原有状态
+            ctx.lineWidth = width;
+            ctx.strokeStyle = color;
+            ctx.translate(centerX, centerY);
+            ctx.rotate(deg); //设置旋转角度  
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke(); //绘图
+            ctx.closePath();
+            ctx.restore();
+        }
+
+        // 自动补0
+        function fillZero(str) {
+            if (str.length < 2) {
+                str = "0" + str;
+            }
+            return str;
+        }
+
+        // 绘制文字
+        function printStr(color, str, font, x, y) {
+            ctx.font = font;
+            ctx.fillStyle = color;
+            ctx.fillText(str, x, y);
+        }
+
+        function drawClock() {
+
+            ctx.clearRect(0, 0, 1000, 120); //清除画布
+
+            var now = new Date();
+            var date = now.toLocaleDateString();
+            var hour = now.getHours();
+            var minu = now.getMinutes();
+            var sec = now.getSeconds();
+            var rad = 50;
+            var PI = Math.PI;
+            var len;
+            
+            // 渐变：起点->终点
+            ctx.beginPath();
+            var grd = ctx.createLinearGradient(0, 0, 0, 150);
+            grd.addColorStop(0, "rgb(2, 104, 191)");
+            grd.addColorStop(1, "white");
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, 600, 200);
+            ctx.closePath();
+
+            // 绘制大刻度
+            for (var i = 0; i < 12; ++i) {
+                drawLine(2, "#FFFFFF", 100, 60, i * 30 * Math.PI / 180, 0, -rad, 0, -44);
+            }
+
+            // 绘制小刻度
+            for (var i = 0; i < 60; ++i) {
+                drawLine(1, "#FFFFFF", 100, 60, i * 6 * Math.PI / 180, 0, -rad, 0, -47);
+            }
+
+            // 时针
+            len = rad / 13 * 4;
+            drawLine(3, "#FFFFFF", 100, 60, 0,
+                -3 * Math.sin((hour + minu / 60) * 30 * PI / 180), 3 * Math.cos((hour + minu / 60) * 30 * PI / 180),
+                len * Math.sin((hour + minu / 60) * 30 * PI / 180), -len * Math.cos((hour + minu / 60) * 30 * PI / 180));
+
+            // 分针
+            len = rad / 13 * 7;
+            drawLine(2, "#FFFFFF", 100, 60, 0,
+               -4 * Math.sin(minu * 6 * PI / 180), 4 * Math.cos(minu * 6 * PI / 180),
+                len * Math.sin(minu * 6 * PI / 180), -len * Math.cos(minu * 6 * PI / 180));
+
+            // 秒针
+            len = rad / 13 * 10;
+            drawLine(1, "#FF0000", 100, 60, 0,
+               -5 * Math.sin(sec * 6 * PI / 180), 5 * Math.cos(sec * 6 * PI / 180),
+                len * Math.sin(sec * 6 * PI / 180), -len * Math.cos(sec * 6 * PI / 180));
+            
+            printStr("white", fillZero(hour.toString()) + ":" + fillZero(minu.toString()), "80px Arial", 160, 90);
+            printStr("white", fillZero(sec.toString()), "40px Arial", 375, 90);
+            printStr("white", weekday[now.getDay()], "23px 宋体", 455, 52);
+            printStr("white", date.toString(), "20px Arial", 455, 80);
+        }
+
+        drawClock();
+        setInterval(drawClock, 1000);
+
+    </script>
+</body>
+</html>
