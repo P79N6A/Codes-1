@@ -20,11 +20,29 @@ using namespace std;
 const int INF = 0x7f7f7f7f;
 const int MAXN = 1e6 + 111;
 
+string s;
+
 int main()
 {
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    cout << (632 & 623) << endl;
+    int n; cin >> n >> s;
+    vector<int> ans;
+    int sum = 0;
+    for (int i = 0; i < n; ++i) {
+        if (s[i] == 'B') {
+            ++sum;
+        }
+        else if (sum) {
+            ans.push_back(sum);
+            sum = 0;
+        }
+    }
+    if (sum) ans.push_back(sum);
+    cout << ans.size() << '\n';
+    for (int i = 0; i < ans.size(); ++i) {
+        cout << ans[i] << ' ';
+    }
     return 0;
 }
