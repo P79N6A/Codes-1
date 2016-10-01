@@ -1,8 +1,13 @@
 /*
-  某点的值 = 回文中心 * 2 - 它的下标
-  所以在回文中心加上一个中心*2,边界减去这个值
-  suml代表：以i开头的回文尾部和
-  sumr代表：以i结尾的回文头部和
+ * 原题HDU5785：任意给定三元组i<j<=k,使得s[i,j - 1],s[j, k]
+ * 均为回文串，问这样的三元组值的和？(i,j,k)值为i*k
+ *
+ * 主要思想就是回文中心+1，回文边界-1，然后累加和即可，代码
+ * 中cnt数组即可求某个结尾的回文个数
+ * 对称点下标 = 回文中心 * 2 - 当前点的下标
+ * 所以在回文中心加上一个中心*2,边界减去这个值
+ * suml代表：以i开头的回文串值的和
+ * sumr代表：以i结尾的回文串值的和
  */
 #include<algorithm>
 #include<cctype>
@@ -54,9 +59,6 @@ int Manacher(int len) {
 
 int main()
 {
-    #ifdef GooZy
-    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
-    #endif
     while (~scanf("%s", s)) {
         int n = strlen(s);
         int l = Manacher(n);

@@ -21,8 +21,6 @@ const int INF = 0x7f7f7f7f;
 const int MAXN = 5e4 + 111;
 
 int y[MAXN];
-int lis[MAXN][32];
-int len[MAXN];
 
 int main()
 {
@@ -31,19 +29,22 @@ int main()
     #endif
     int n;
     while (~scanf("%d", &n)) {
+        map<int, bool> mp;
         for (int i = 0; i < n; ++i) {
             scanf("%d", &y[i]);
+            mp[y[i]] = 1;
         }
         sort(y, y + n);
-        for (int i = 0; i , n; ++i) {
-            len[i] = 0;
+        for (int i = n - 1; i >= 0; --i) {
             int temp = y[i];
             while (temp != 0) {
-                lis[len[i]++] = temp;
-                if (temp % 2) {
-                    temp = (temp - 1) / 2;
+                if (!mp[temp]) {
+                    y[i] = temp;
+                    mp[y[i]] = 0;
+                    mp[temp] = 1;
+                    break;
                 }
-                else temp /= 2;
+                temp /= 2;
             }
         }
 
