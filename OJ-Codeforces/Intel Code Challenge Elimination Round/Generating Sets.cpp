@@ -29,27 +29,32 @@ int main()
     #endif
     int n;
     while (~scanf("%d", &n)) {
-        map<int, bool> mp;
+        set<int> s;
         for (int i = 0; i < n; ++i) {
             scanf("%d", &y[i]);
-            mp[y[i]] = 1;
+            s.insert(y[i]);
         }
-        sort(y, y + n);
-        for (int i = n - 1; i >= 0; --i) {
-            int temp = y[i];
+        set<int>::iterator it;
+        while (1) {
+            it = s.end();
+            --it;
+            int temp = *it;
+            bool ok = 1;
             while (temp != 0) {
-                if (!mp[temp]) {
-                    y[i] = temp;
-                    mp[y[i]] = 0;
-                    mp[temp] = 1;
+                if (!s.count(temp)) {
+                    s.erase(*it);
+                    s.insert(temp);
+                    ok = 0;
                     break;
                 }
                 temp /= 2;
             }
+            if (ok) break;
         }
 
-        printf("%d", y[0]);
-        for (int i = 1; i < n; ++i) printf(" %d", y[i]);
+        for (it = s.begin(); it != s.end(); ++it) {
+            printf("%d ", *it);
+        }
         putchar('\n');
     }
     return 0;
