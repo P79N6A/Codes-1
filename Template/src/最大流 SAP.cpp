@@ -1,3 +1,20 @@
+#include<algorithm>
+#include<cctype>
+#include<cmath>
+#include<cstdio>
+#include<cstring>
+#include<iomanip>
+#include<iostream>
+#include<map>
+#include<queue>
+#include<set>
+#include<sstream>
+#include<stack>
+#include<string>
+#define lowbit(x) (x & (-x))
+#define ll long long
+#define pr(x) cout << #x << " = " << (x) << '\n';
+using namespace std;
 
 const int MAXN = 510;//点数的最大值
 const int MAXM = 540010;//边数的最大值的两倍
@@ -87,6 +104,9 @@ int sap(int start,int end,int N)
 
 int main()
 {
+    #ifdef LOCAL
+    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
+    #endif
     for (int kk, kase = scanf("%d", &kk); kase <= kk; ++kase) {
         init();
 

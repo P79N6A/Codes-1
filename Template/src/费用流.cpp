@@ -1,4 +1,19 @@
-
+#include<algorithm>
+#include<cctype>
+#include<cmath>
+#include<cstdio>
+#include<cstring>
+#include<iomanip>
+#include<iostream>
+#include<map>
+#include<queue>
+#include<set>
+#include<sstream>
+#include<stack>
+#include<string>
+#define ll long long
+#define pr(x) cout << #x << " = " << (x) << '\n';
+using namespace std;
 
 const int MAXN = 300;
 const int MAXM = 1e5; // 边数最大值的两倍
@@ -93,6 +108,8 @@ int minCostMaxflow(int s,int t,int &cost)
 
 int main()
 {
-	init(n);
+    #ifdef LOCAL
+    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
+    #endif
     return 0;
 }
