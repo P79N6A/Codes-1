@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" onkeypress="myfun(-1)">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>简易计算器</title>
+    <style type="text/css">
+        input[type="button"] {
+            width: 98%;
+        }
+
+        #txtResult {
+            width: 98%;
+        }
+    </style>
+
+</head>
+<body>
+
+
+    <table style="width:20%;" border="1" id="mytable" align="center">
+        <tr><td colspan="5"><input id="txtResult" type="text" /></td></tr>
+        <script type="text/javascript">
+
+            var btnNumber = "";
+            var expression = "";
+            var k = -1;
+            var btnValue = new Array("1", "2", "3", "4", "+", "5", "6", "7", "8", "-", "9", "0", ".", "C", "*", "(", ")", "%", "<-", "/", "sin", "cos", "sqrt", "tan", "=");
+            for (var i = 0; i < 5; i++) {
+                window.document.write("<tr>");
+                for (var j = 0; j < 5; j++) {
+                    window.document.write("<td>");
+                    btnNumber = (i + 1) + "" + (j + 1);
+                    k++;
+                    //window.document.write('<input id="btn' + btnNumber + '" type="button" onclick="myfun('+btnNumber+');" value="' + btnValue[k] + '" />');
+                    window.document.write('<input id="btn' + btnNumber + '" type="button" onclick="myfun(this.value);" value="' + btnValue[k] + '" />');
+                    //alert('<input id="btn' + btnNumber + '" type="button" value="button" />');
+                    window.document.write("</td>");
+
+                }
+                window.document.write("</tr>");
+            }
+
+            function myfun(btnValue) {
+                var key = 0;
+                //alert(btnValue);
+                if (btnValue == -1) {
+                    //alert(btnValue);
+                    key = window.event.keyCode;
+                    btnValue = String.fromCharCode(key);
+                }
+                //alert(key);
+                //alert(btnValue);
+                if (btnValue == "=" || key == 13) {
+                    txtResult.value = eval(expression);
+                    expression = txtResult.value;
+                }
+                else if (btnValue == "C") {
+                    txtResult.value = "";
+                    expression = "";
+
+                }
+                else if (btnValue == "<-" || key == 8) {
+                    //alert(key);
+                    if (expression.length != 0) {
+                        var tempExp = "";
+                        for (var i = 0; i < expression.length - 1; ++i) {
+                            tempExp += expression[i];
+                        }
+                        expression = tempExp;
+                        txtResult.value = expression;
+                    }
+                }
+                else {
+                    expression = expression + btnValue;
+                    txtResult.value = expression;
+                }
+                //alert(window.document.getElementById(btnID).value);
+
+
+            }
+
+        </script>
+
+    </table>
+
+</body>
+</html>

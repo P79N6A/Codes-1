@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" onkeypress="myfun(-1)">
+<head>
+	<!-- made by GooZy -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>简易计算器</title>
+    <style type="text/css">
+        input[type="button"] {
+            width: 60px;
+			height: 30px;
+			margin:0;
+			padding:0;
+			font: bold 16px Arial;
+        }
+		
+		div {
+			font: bold 16px Arial;
+		}
+
+        #txtResult {
+            width: 325px;
+			height: 25px;
+        }
+		
+		#mytable {
+			width: 325px;
+            height: auto;
+			/* auto 居中 */
+            margin: 100px auto;
+			/* 四周距离 */
+            padding: 20px;
+            background: linear-gradient(#f7f7f7, #aaa);
+			/* 圆角 */
+            border-radius: 8px;
+			/* 对象选择器 {box-shadow:[投影方式] X轴偏移量 Y轴偏移量阴影模糊半径 阴影扩展半径 阴影颜色} */
+            box-shadow: 1px 7px 8px #212121;
+		}
+		
+		body {
+            background: radial-gradient(circle,#fff,#aaa);
+        }
+		
+    </style>
+	<script type="text/javascript">
+		document.write('<table id="mytable" align="center">');
+		document.write('<tr><td colspan="5"><div align="center">简易计算器v0.5</div></td></tr>');
+		document.write('<tr><td colspan="5"><input id="txtResult" type="text" /></td></tr>');
+		var exp = "";
+		var k = 0;
+		var btnValue = new Array("1", "2", "3", "C", "<-", "4", "5", "6", "+", "-", "7", "8", "9", "*", "/", "0", ".", "sin", "cos", "tan", "(", ")", "%", "sqrt", "=");
+		// 计算器生成
+		for (var i = 0; i < 5; i++) {
+			document.write("<tr>");
+			for (var j = 0; j < 5; j++) {
+				document.write("<td>");
+				document.write('<input id="btn' + k + '" type="button" onclick="myfun(this.value);" value="' + btnValue[k] + '" />');
+				++k
+				document.write("</td>");
+			}
+			document.write("</tr>");
+		}
+		
+		// 响应事件
+		function myfun(btnValue) {
+			var key = 0;
+			if (btnValue == -1) {
+				key = event.keyCode;
+				btnValue = String.fromCharCode(key);
+			}
+			//alert(key);
+			//alert(btnValue);
+			if (btnValue == "=" || key == 13) {
+				exp = exp.replace(/sqrt/g, "Math.sqrt");
+				exp = exp.replace(/sin/g, "Math.sin");
+				exp = exp.replace(/cos/g, "Math.cos");
+				exp = exp.replace(/tan/g, "Math.tan");
+				exp = eval(exp);
+			}
+			else if (btnValue == "C") exp = "";
+			else if (btnValue == "<-" || key == 8) {
+				if (exp.length != 0) {
+					exp = exp.substring(0, exp.length - 1);
+				}
+			}
+			else exp = exp + btnValue;
+			
+			txtResult.value = exp;
+		}
+		document.write("</table>");
+	</script>
+
+</head>
+<body>
+	<div align="center">使用键盘同样可以输入~ 请不要敲击键盘"delete"键，网页会后退= =!</div>
+	<hr width=50%></hr>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+  /*
+      https://gist.github.com/andyferra/2554919
+  */
+  
+  body {
+    font-family: Helvetica, arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: white;
+    padding: 30px; }
+  
+  body > *:first-child {
+    margin-top: 0 !important; }
+  body > *:last-child {
+    margin-bottom: 0 !important; }
+  
+  a {
+    color: #4183C4; }
+  a.absent {
+    color: #cc0000; }
+  a.anchor {
+    display: block;
+    padding-left: 30px;
+    margin-left: -30px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0; }
+  
+  h1, h2, h3, h4, h5, h6 {
+    margin: 20px 0 10px;
+    padding: 0;
+    font-weight: bold;
+    -webkit-font-smoothing: antialiased;
+    cursor: text;
+    position: relative; }
+  
+  h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor {
+    background: url("../../images/modules/styleguide/para.png") no-repeat 10px center;
+    text-decoration: none; }
+  
+  h1 tt, h1 code {
+    font-size: inherit; }
+  
+  h2 tt, h2 code {
+    font-size: inherit; }
+  
+  h3 tt, h3 code {
+    font-size: inherit; }
+  
+  h4 tt, h4 code {
+    font-size: inherit; }
+  
+  h5 tt, h5 code {
+    font-size: inherit; }
+  
+  h6 tt, h6 code {
+    font-size: inherit; }
+  
+  h1 {
+    font-size: 28px;
+    color: black; }
+  
+  h2 {
+    font-size: 24px;
+    border-bottom: 1px solid #cccccc;
+    color: black; }
+  
+  h3 {
+    font-size: 18px; }
+  
+  h4 {
+    font-size: 16px; }
+  
+  h5 {
+    font-size: 14px; }
+  
+  h6 {
+    color: #777777;
+    font-size: 14px; }
+  
+  p, blockquote, ul, ol, dl, li, table, pre {
+    margin: 15px 0; }
+  
+  hr {
+    background: transparent url("../../images/modules/pulls/dirty-shade.png") repeat-x 0 0;
+    border: 0 none;
+    color: #cccccc;
+    height: 4px;
+    padding: 0; }
+  
+  body > h2:first-child {
+    margin-top: 0;
+    padding-top: 0; }
+  body > h1:first-child {
+    margin-top: 0;
+    padding-top: 0; }
+    body > h1:first-child + h2 {
+      margin-top: 0;
+      padding-top: 0; }
+  body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child {
+    margin-top: 0;
+    padding-top: 0; }
+  
+  a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 {
+    margin-top: 0;
+    padding-top: 0; }
+  
+  h1 p, h2 p, h3 p, h4 p, h5 p, h6 p {
+    margin-top: 0; }
+  
+  li p.first {
+    display: inline-block; }
+  
+  ul, ol {
+    padding-left: 30px; }
+  
+  ul :first-child, ol :first-child {
+    margin-top: 0; }
+  
+  ul :last-child, ol :last-child {
+    margin-bottom: 0; }
+  
+  dl {
+    padding: 0; }
+    dl dt {
+      font-size: 14px;
+      font-weight: bold;
+      font-style: italic;
+      padding: 0;
+      margin: 15px 0 5px; }
+      dl dt:first-child {
+        padding: 0; }
+      dl dt > :first-child {
+        margin-top: 0; }
+      dl dt > :last-child {
+        margin-bottom: 0; }
+    dl dd {
+      margin: 0 0 15px;
+      padding: 0 15px; }
+      dl dd > :first-child {
+        margin-top: 0; }
+      dl dd > :last-child {
+        margin-bottom: 0; }
+  
+  blockquote {
+    border-left: 4px solid #dddddd;
+    padding: 0 15px;
+    color: #777777; }
+    blockquote > :first-child {
+      margin-top: 0; }
+    blockquote > :last-child {
+      margin-bottom: 0; }
+  
+  table {
+    padding: 0; }
+    table tr {
+      border-top: 1px solid #cccccc;
+      background-color: white;
+      margin: 0;
+      padding: 0; }
+      table tr:nth-child(2n) {
+        background-color: #f8f8f8; }
+      table tr th {
+        font-weight: bold;
+        border: 1px solid #cccccc;
+        text-align: left;
+        margin: 0;
+        padding: 6px 13px; }
+      table tr td {
+        border: 1px solid #cccccc;
+        text-align: left;
+        margin: 0;
+        padding: 6px 13px; }
+      table tr th :first-child, table tr td :first-child {
+        margin-top: 0; }
+      table tr th :last-child, table tr td :last-child {
+        margin-bottom: 0; }
+  
+  img {
+    max-width: 100%; }
+  
+  span.frame {
+    display: block;
+    overflow: hidden; }
+    span.frame > span {
+      border: 1px solid #dddddd;
+      display: block;
+      float: left;
+      overflow: hidden;
+      margin: 13px 0 0;
+      padding: 7px;
+      width: auto; }
+    span.frame span img {
+      display: block;
+      float: left; }
+    span.frame span span {
+      clear: both;
+      color: #333333;
+      display: block;
+      padding: 5px 0 0; }
+  span.align-center {
+    display: block;
+    overflow: hidden;
+    clear: both; }
+    span.align-center > span {
+      display: block;
+      overflow: hidden;
+      margin: 13px auto 0;
+      text-align: center; }
+    span.align-center span img {
+      margin: 0 auto;
+      text-align: center; }
+  span.align-right {
+    display: block;
+    overflow: hidden;
+    clear: both; }
+    span.align-right > span {
+      display: block;
+      overflow: hidden;
+      margin: 13px 0 0;
+      text-align: right; }
+    span.align-right span img {
+      margin: 0;
+      text-align: right; }
+  span.float-left {
+    display: block;
+    margin-right: 13px;
+    overflow: hidden;
+    float: left; }
+    span.float-left span {
+      margin: 13px 0 0; }
+  span.float-right {
+    display: block;
+    margin-left: 13px;
+    overflow: hidden;
+    float: right; }
+    span.float-right > span {
+      display: block;
+      overflow: hidden;
+      margin: 13px auto 0;
+      text-align: right; }
+  
+  code, tt {
+    margin: 0 2px;
+    padding: 0 5px;
+    white-space: nowrap;
+    border: 1px solid #eaeaea;
+    background-color: #f8f8f8;
+    border-radius: 3px; }
+  
+  pre code {
+    margin: 0;
+    padding: 0;
+    white-space: pre;
+    border: none;
+    background: transparent; }
+  
+  .highlight pre {
+    background-color: #f8f8f8;
+    border: 1px solid #cccccc;
+    font-size: 13px;
+    line-height: 19px;
+    overflow: auto;
+    padding: 6px 10px;
+    border-radius: 3px; }
+  
+  pre {
+    background-color: #f8f8f8;
+    border: 1px solid #cccccc;
+    font-size: 13px;
+    line-height: 19px;
+    overflow: auto;
+    padding: 6px 10px;
+    border-radius: 3px; }
+    pre code, pre tt {
+      background-color: transparent;
+      border: none; }
+  
+  
+  </style>
+</head>
+<body>
+<p>Time Limit: 1000 MS &#160;&#160;&#160;&#160; &#160; &#160; &#160; &#160; Memory Limit: 64 M</p>
+<hr />
+<p>-0(Negtive Zero)&#24456;&#21916;&#27426;&#22810;&#20219;&#21153;&#31995;&#32479;&#65292;&#29305;&#21035;&#26159;&#24403;&#20182;&#33258;&#24049;&#20351;&#29992;&#35745;&#31639;&#26426;&#26102;&#12290;&#27599;&#27425;&#20351;&#29992;&#35745;&#31639;&#26426;&#20182;&#37117;&#20250;&#24320;&#21551;&#20061;&#20010;&#31243;&#24207;&#65292;&#27599;&#20010;&#31243;&#24207;&#31383;&#21475;&#22823;&#23567;&#20026; <span class="math inline">2&#8197;&#215;&#8197;2</span>&#65292;&#25972;&#20010;&#26174;&#31034;&#23631;&#30340;&#22823;&#23567;&#20026; <span class="math inline">4&#8197;&#215;&#8197;4</span>&#12290;&#27599;&#20010;&#31243;&#24207;&#31383;&#21475;&#22914;&#19979;&#22270;&#25152;&#31034;&#65306;</p>
+<div class="figure">
+<img src="http://7xread.com1.z0.glb.clouddn.com/c472b8c8-a002-4889-987a-a482dc5e48a5" />
+
+</div>
+<p>&#24403;-0&#25226;&#19968;&#20010;&#31383;&#21475;&#35843;&#21040;&#26368;&#21069;&#38754;&#26102;&#65292;&#23427;&#30340;&#25152;&#26377;&#26041;&#26684;&#37117;&#20301;&#20110;&#26368;&#21069;&#38754;&#65292;&#35206;&#30422;&#23427;&#19982;&#20854;&#23427;&#31383;&#21475;&#20849;&#29992;&#30340;&#26041;&#26684;&#12290;&#20363;&#22914;&#31383;&#21475;1&#35843;&#21040;&#26368;&#21069;&#38754;&#65292;&#20043;&#21518;&#20877;&#25226;&#31383;&#21475;2&#35843;&#21040;&#26368;&#21069;&#38754;&#65292;&#27492;&#26102;&#22914;&#22270;&#65306;</p>
+<div class="figure">
+<img src="http://7xread.com1.z0.glb.clouddn.com/9fcee86f-5d8b-4bae-b30e-526de0c9cb40" />
+
+</div>
+<p>&#28982;&#21518;&#25105;&#20204;&#20877;&#23558;&#31383;&#21475;4&#35843;&#21040;&#26368;&#21069;&#38754;&#65292;&#23601;&#21464;&#25104;&#20102;&#19979;&#22270;&#65306;</p>
+<div class="figure">
+<img src="http://7xread.com1.z0.glb.clouddn.com/dbe5e971-cde7-4a6a-9139-4f18f3e330d4" />
+
+</div>
+<p>&#24456;&#19981;&#24184;&#30340;&#26159;&#65292;-0&#30340;&#30005;&#33041;&#26368;&#36817;&#25554;&#19978;GooZy&#30340;U&#30424;&#32780;&#24863;&#26579;&#19978;&#20102;SB(Somebody)&#30149;&#27602;&#65292;&#32463;&#24120;&#23849;&#28291;&#65292;&#25152;&#20197;&#20182;&#24819;&#35201;&#19968;&#20010;&#31243;&#24207;&#33021;&#22815;&#21028;&#26029;&#33258;&#24049;&#30340;&#30005;&#33041;&#26159;&#21542;&#23849;&#28291;&#12290;&#21028;&#26029;&#26159;&#21542;&#23849;&#28291;&#30340;&#21807;&#19968;&#26631;&#20934;&#23601;&#26159;&#65306;&#24403;&#21069;&#26700;&#38754;&#26174;&#31034;&#30340;&#31383;&#21475;&#21472;&#25918;&#29366;&#24577;&#26159;&#21542;&#21512;&#27861;&#12290;&#22914;&#26524;&#20986;&#29616;&#20102;&#19981;&#21487;&#33021;&#30340;&#21472;&#25918;&#26041;&#24335;&#65292;&#37027;&#20040;&#23601;&#26159;&#23849;&#28291;&#20102;&#65292;&#21542;&#21017;&#23601;&#26159;&#36816;&#34892;&#27491;&#24120;&#12290;&#20320;&#33021;&#24110;&#21161;&#25105;&#20204;&#30340;NZ&#21516;&#23398;&#21527;&#65311;</p>
+<h2 id="&#36755;&#20837;">&#36755;&#20837;</h2>
+<p>&#36755;&#20837;&#21253;&#21547;&#22810;&#32452;&#25968;&#25454;&#12290;&#31532;&#19968;&#34892;&#20026;&#19968;&#20010;&#25972;&#25968;T(1&#8196;&#8804;&#8196;T&#8196;&#8804;&#8196;50)&#65292;&#20195;&#34920;&#25968;&#25454;&#32452;&#25968;&#65292;&#23545;&#20110;&#27599;&#32452;&#25968;&#25454;&#65306;<br />
+&#36755;&#20837;&#19968;&#20010; <span class="math inline">4&#8197;&#215;&#8197;4</span> &#30340;&#30697;&#38453;&#65292;&#20195;&#34920;&#24403;&#21069;&#30340;&#26174;&#31034;&#23631;&#29366;&#24577;&#65292;&#30697;&#38453;&#21482;&#30001;1~9&#36825;&#20061;&#20010;&#25972;&#25968;&#26500;&#25104;&#12290;<br />
+&#20445;&#35777;&#31383;&#21475;&#21482;&#20986;&#29616;&#22312;&#33258;&#24049;&#21487;&#33021;&#20986;&#29616;&#30340;&#20301;&#32622;&#65292;&#20363;&#22914;&#31383;&#21475;1&#21482;&#20250;&#20986;&#29616;&#22312;&#24038;&#19978;&#35282;&#30340;&#22235;&#20010;&#26041;&#26684;&#37324;&#12290;</p>
+<h2 id="&#36755;&#20986;">&#36755;&#20986;</h2>
+<p>&#22914;&#26524;-0&#30340;&#30005;&#33041;&#23849;&#28291;&#20102;&#65292;&#36755;&#20986;&#8220;BOOM!&#8221;&#65292;&#21542;&#21017;&#36755;&#20986;&#8220;Lucky dog!&#8221;&#12290;&#65288;&#19981;&#21253;&#21547;&#24341;&#21495;&#65289;</p>
+<h2 id="&#26679;&#20363;&#36755;&#20837;">&#26679;&#20363;&#36755;&#20837;</h2>
+<p>2</p>
+<p>1 2 3 3<br />
+4 5 6 6<br />
+7 8 9 9<br />
+7 8 9 9</p>
+<p>1 1 3 3<br />
+4 1 3 3<br />
+7 7 9 9<br />
+7 7 9 9</p>
+<h2 id="&#26679;&#20363;&#36755;&#20986;">&#26679;&#20363;&#36755;&#20986;</h2>
+<p>Lucky dog!<br />
+BOOM!</p>
+<h2 id="hint">HINT</h2>
+<p>&#23545;&#20110;&#26679;&#20363;2&#65292;&#31383;&#21475;1&#30340;&#24038;&#19979;&#26041;&#34987;&#31383;&#21475;4&#25377;&#20303;&#21364;&#38706;&#20986;&#20102;&#33258;&#24049;&#30340;&#21491;&#19979;&#26041;&#65292;&#36825;&#19981;&#21487;&#33021;&#21834;&#65281;&#25152;&#20197;&#26174;&#28982;&#26159;&#30005;&#33041;&#23849;&#28291;&#20102;&#12290;</p>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>图片播放</title>
+    <style type="text/css">
+        input[type="button"] {
+            width: 98%;
+        }
+    </style>
+</head>
+<body>
+    <table style="width:20%;" border="1" align="center">
+        <tr>
+            <td colspan="6" align="center">
+                <img id=photo src="http://7xsy54.com1.z0.glb.clouddn.com/1.jpg" width="100" height="100" alt="葱头" />
+                <script type="text/javascript">
+                    var timeInterval = 1800;
+                    var pho = new Array();
+                    var obj = document.getElementById("photo");
+                    var curIndex = 0;
+                    var timeId;
+                    pho[0] = "http://7xsy54.com1.z0.glb.clouddn.com/1.jpg";
+                    pho[1] = "http://7xsy54.com1.z0.glb.clouddn.com/2.jpg";
+                    pho[2] = "http://7xsy54.com1.z0.glb.clouddn.com/3.jpg";
+
+                    function changeImg() {
+                        curIndex = (curIndex + 1) % pho.length;
+                        obj.src = pho[curIndex];
+                    }
+
+                    function setIndx(indx, add) {
+                        indx -= 1;
+                        if (indx == -1) indx = curIndex; // 是否是前后按钮
+                        indx = (indx + add + pho.length) % pho.length;
+                        curIndex = indx;
+                        obj.src = pho[curIndex];
+                    }
+
+                    function begin(op) {
+                        if (op == 1)
+                            timeID = setInterval(changeImg, timeInterval);
+                        else window.clearInterval(timeID);
+                    }
+                    //window.document.write('<img src="' + photo[1] + '" width="100" height="100" alt="葱头" />');
+                </script>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input id="1" type="button" onclick="setIndx(1, 0)" value="1" /></td>
+            <td colspan="2"><input id="2" type="button" onclick="setIndx(2, 0)" value="2" /></td>
+            <td colspan="2"><input id="3" type="button" onclick="setIndx(3, 0)" value="3" /></td>
+        </tr>
+        <tr>
+            <td colspan="3"><input id="play" type="button" onclick="begin(1)" value="play" /></td>
+            <td colspan="3"><input id="stop" type="button" onclick="begin(0)" value="stop" /></td>
+        </tr>
+        <tr>
+            <td colspan="3"><input id="<-" type="button" onclick="setIndx(0, -1)" value="<-" /></td>
+            <td colspan="3"><input id="->" type="button" onclick="setIndx(0, 1)" value="->" /></td>
+        </tr>
+    </table>
+</body>
+</html>

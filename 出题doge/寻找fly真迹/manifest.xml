@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<problem>
+	<title><![CDATA[寻找fly真迹]]></title>
+	<author><![CDATA[GooZy]]></author>
+	<content><![CDATA[寻找fly真迹.html]]></content>
+	<site>scu</site>
+	<id2></id2>
+	<validator>standard</validator>
+	<testcase>
+		<cpu>2000</cpu>
+		<memory>262144</memory>
+		<input><![CDATA[input.txt]]></input>
+		<output><![CDATA[output.txt]]></output>
+	</testcase>
+</problem>
