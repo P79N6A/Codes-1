@@ -18,37 +18,22 @@
 using namespace std;
 
 const int INF = 0x7f7f7f7f;
-const int MAXN = 1111;
-
-int c[MAXN], G[MAXN][MAXN];
-int topo[MAXN], t, n;
-
-bool dfs(int u) {
-    c[u] = -1;
-    for (int v = 0; v < n; ++v) {
-        if (G[u][v]) {
-            if (c[v] < 0) return false;
-            else if (!c[v] && !dfs(v)) return false;
-        }
-    }
-    c[u] = 1;
-    topo[--t] = u;
-    return true;
-}
-
-bool toposort() {
-    t = n;
-    memset(c, 0, sizeof c);
-    for (int u = 0; u < n; ++u) if (!c[u] && !dfs(u)) {
-        return false;
-    }
-    return true;
-}
+const int MAXN = 1e6 + 111;
 
 int main()
 {
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
+    ll n, m, k, x, y;
+    while (~scanf("%I64d%I64d%I64d", &n, &m, &k)) {
+        while (k --) {
+            scanf("%I64d%I64d", &x, &y);
+            if ((x - y) % 2) puts("-1");
+            else {
+
+            }
+        }
+    }
     return 0;
 }
