@@ -21,10 +21,8 @@ const int INF = 0x7f7f7f7f;
 const int MAXN = 1e5 + 111;
 
 char s[MAXN];
-int num[26][MAXN];
-int pos[26];
-int len[26];
-bool vis[26];
+int num[MAXN];
+char ans[MAXN];
 
 int main()
 {
@@ -33,76 +31,30 @@ int main()
     #endif
     int m;
     scanf("%d%s", &m, s);
-    int Len = strlen(s);
-    vector<char> ans;
-    char mi = 'z';
-    for (int r = 0; r < Len; ++r) {
-        mi = min(mi, s[r]);
-    }
-    int l = 0, choose = 0;
-    for (int r = 0; r < Len; ++r) {
-        int u = s[r] - 'a';
-        num[u][len[u]++] = r;
-        if (r - l == m - 1) {
-            if (l == choose) {
-                for (int i = 0; i < 26; ++i) {
-                    if (len[i] - pos[i] != 0) {
-                        int p = num[i][len[i] - 1];
-                        ans.push_back(s[p]);
-                        choose = p + 1;
-                        break;
-                    }
-                }
-            }
-            int v = s[l] - 'a';
-            ++pos[v];
-            ++l;
-        }
-    }
-    bool ok = 1;
-    for (int i = 0; i < ans.size(); ++i) {
-        if (ans[i] != mi) {
-            ok = 0;
-            break;
-        }
-    }
-    if (!ok) {
-        ans.clear();
-        l = 0, choose = 0;
-        memset(len, 0, sizeof len);
-        memset(pos, 0, sizeof pos);
-        for (int r = 0; r < Len; ++r) {
-            int u = s[r] - 'a';
-            num[u][len[u]++] = r;
-            if (u == mi - 'a') {
-                ans.push_back(mi);
-                choose = r + 1;
-            }
-            if (r - l == m - 1) {
-                if (l == choose) {
-                    for (int i = 0; i < 26; ++i) {
-                        if (len[i] - pos[i] != 0) {
-                            int p = num[i][len[i] - 1];
-                            ans.push_back(s[p]);
-                            choose = p + 1;
-                            break;
-                        }
-                    }
-                }
-                int v = s[l] - 'a';
-                ++pos[v];
-                ++l;
+    int n = strlen(s), len = 0, cnt = 0;
+    for (int i = 0; i < n - m + 1; ++i) {
+        char mi = 'z';
+        int pos = 0;
+        for (int j = i; j < i + m; ++j) {
+            if (s[j] <= mi) {
+                mi = s[j];
+                pos = j;
             }
         }
-        sort(ans.begin(), ans.end());
-        char mx = ans.back();
-        for (int i = choose; i < Len; ++i) {
-            if (s[i] < mx) ans.push_back(s[i]);
+        if (++num[s[pos] - 'a'] == 1) {
+            ++len;
         }
+        i = pos;
     }
-    sort(ans.begin(), ans.end());
-    for (int i = 0; i < ans.size(); ++i) {
-        putchar(ans[i]);
+    sort(s, s + n);
+    for (int i = 0; i < n; ++i) {
+        if (!len) break;
+        if (num[s[i] - 'a']) {
+            if (--num[s[i] - 'a'] == 0) --len;
+        }
+        ans[cnt++] = s[i];
     }
+    ans[cnt] = 0;
+    puts(ans);
     return 0;
 }

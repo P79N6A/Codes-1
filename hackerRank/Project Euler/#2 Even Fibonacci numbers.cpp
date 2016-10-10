@@ -25,6 +25,19 @@ int main()
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    prln(log2(1e6))
+    int t; cin >> t;
+    ll n;
+    while (t --) {
+        cin >> n;
+        ll a = 0, b = 1;
+        ll ans = 0;
+        while (a + b < n) {
+            ll c = a + b;
+            if (c % 2 == 0) ans += c;
+            a = b;
+            b = c;
+        }
+        cout << ans << '\n';
+    }
     return 0;
 }

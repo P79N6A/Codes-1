@@ -25,6 +25,10 @@ int main()
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    prln(log2(1e6))
+    int t; cin >> t;
+    ll n;
+    while (t --) {
+        cin >> n;
+    }
     return 0;
 }

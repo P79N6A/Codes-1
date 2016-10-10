@@ -25,6 +25,23 @@ int main()
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    prln(log2(1e6))
+    int s, t, a, b, m, n, x;
+    scanf("%d%d%d%d%d%d", &s, &t, &a, &b, &m, &n);
+    int apple = 0, orange = 0;
+    while (m --) {
+        scanf("%d", &x);
+        int nx = a + x;
+        if (s <= nx && nx <= t) {
+            ++apple;
+        }
+    }
+    while (n --) {
+        scanf("%d", &x);
+        int nx = b + x;
+        if (s <= nx && nx <= t) {
+            ++orange;
+        }
+    }
+    printf("%d\n%d\n", apple, orange);
     return 0;
 }

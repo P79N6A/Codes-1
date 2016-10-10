@@ -22,29 +22,15 @@ const int MAXN = 22;
 
 int num[MAXN][MAXN], n, m;
 
-bool dfs(int r) {
-    if (r == n + 1) {
-        for (int i = 1; i <= m; ++i) {
-            for (int j = 2; j <= n; ++j) {
-                if (num[j][i] != num[1][i]) return 0;
-            }
-        }
+bool ok() {
+    for (int i = 1; i <= n; ++i) {
         int cnt = 0;
-        for (int i = 1; i <= m; ++i) {
-            if (num[1][i] != i) ++cnt;
-        }
-        if (cnt > 2) return 0;
-        else return 1;
-    }
-    if (dfs(r + 1)) return 1;
-    for (int i = 1; i <= m; ++i) {
-        for (int j = i + 1; j <= m; ++j) {
-            swap(num[r][i], num[r][j]);
-            if (dfs(r + 1)) return 1;
-            swap(num[r][i], num[r][j]);
+        for (int j = 1; j <= m; ++j) {
+            cnt += (num[i][j] != j);
+            if (cnt > 2) return 0;
         }
     }
-    return 0;
+    return 1;
 }
 
 int main()
@@ -58,9 +44,20 @@ int main()
             cin >> num[i][j];
         }
     }
-    if (dfs(1)) {
-        cout << "YES\n";
+    for (int i = 1; i <= m; ++i) {
+        for (int j = i; j <= m; ++j) {
+            for (int k = 1; k <= n; ++k) {
+                swap(num[k][i], num[k][j]);
+            }
+            if (ok()) {
+                puts("YES");
+                return 0;
+            }
+            for (int k = 1; k <= n; ++k) {
+                swap(num[k][i], num[k][j]);
+            }
+        }
     }
-    else cout << "NO\n";
+    puts("NO");
     return 0;
 }

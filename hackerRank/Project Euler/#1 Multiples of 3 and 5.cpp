@@ -18,13 +18,23 @@
 using namespace std;
 
 const int INF = 0x7f7f7f7f;
-const int MAXN = 1e6 + 111;
+
+ll getsum(ll x, ll mul) {
+    return (1 + x) * x / 2 * mul;
+}
 
 int main()
 {
     #ifdef GooZy
     freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
     #endif
-    prln(log2(1e6))
+    int t; scanf("%d", &t);
+    ll n;
+    while (t --) {
+        scanf("%lld", &n);
+        --n;
+        ll sum = getsum(n / 3, 3) + getsum(n / 5, 5) - getsum(n / 15, 15);
+        printf("%lld\n", sum);
+    }
     return 0;
 }
