@@ -2,7 +2,7 @@ struct FastIO {
   static const int S = 1310720;
   int wpos; char wbuf[S];
   FastIO() : wpos(0) {}
-  inline int xchar() {
+  inline int xchar() { // 读入字符
     static char buf[S];
     static int len = 0, pos = 0;
     if (pos == len)
@@ -10,26 +10,26 @@ struct FastIO {
     if (pos == len) return -1;
     return buf[pos ++];
   }
-  inline int xuint() {
+  inline int xuint() { // 读入unsigned int
     int c = xchar(), x = 0;
     while (c <= 32) c = xchar();
     for (;'0' <= c && c <= '9'; c = xchar()) x = x * 10 + c - '0';
     return x;
   }
-  inline int xint() {
+  inline int xint() { // 读入int
     int s = 1, c = xchar(), x = 0;
     while (c <= 32) c = xchar();
     if (c == '-') s = -1, c = xchar();
     for (; '0' <= c && c <= '9'; c = xchar()) x = x * 10 + c - '0';
     return x * s;
   }
-  inline void xstring(char *s) {
+  inline void xstring(char *s) { // 读入string
     int c = xchar();
     while (c <= 32) c = xchar();
     for(; c > 32; c = xchar()) *s++ = c;
     *s = 0;
   }
-  inline void wchar(int x) {
+  inline void wchar(int x) { // 输出
     if (wpos == S) fwrite(wbuf, 1, S, stdout), wpos = 0;
     wbuf[wpos ++] = x;
   }

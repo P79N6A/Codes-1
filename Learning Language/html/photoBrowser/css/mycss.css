@@ -1,0 +1,149 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+body {
+    background-color: #F3F3FA;
+}
+
+h1 {
+    text-align: center;
+}
+
+ul {
+    /*容器内距离*/
+    padding: 0;
+    /*容器外距离*/
+    margin: 0;
+}
+
+img {
+    border:0;
+}
+
+.play {
+    width: 800px;
+    height: 590px;
+    margin: 20px auto 0;
+    background-color: #000000;
+    font: 12px Arial;
+}
+
+.big_pic {
+    width: 800px;
+    height: 480px;
+    /*超出元素框大小的部分隐藏*/
+    overflow: hidden;
+    background: #222;
+    /*相对定位*/
+    position: relative;
+}
+
+.big_pic li {
+    width: 800px;
+    height: 480px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.mark_left {
+    width: 400px;
+    height: 480px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    filter: alpha(opacity:10);
+    opacity: 0.1;
+    z-index: 3000;
+}
+
+.mark_right {
+    width: 400px;
+    height: 480px;
+    position: absolute;
+    left: 400px;
+    top: 0;
+    filter: alpha(opacity:10);
+    opacity: 0.1;
+    z-index: 3000;
+}
+
+.prev {
+    width: 60px;
+    height: 60px;
+    background: url(../images/btn.png) no-repeat;
+    position: absolute;
+    top: 210px;
+    left: 10px;
+    z-index: 3001;
+    filter: alpha(opacity:0);
+    opacity: 0;
+    cursor: pointer;
+}
+
+.next {
+    width: 60px;
+    height: 60px;
+    background: url(../images/btn2.png) no-repeat 0;
+    position: absolute;
+    top: 210px;
+    right: 10px;
+    z-index: 3001;
+    filter: alpha(opacity:0);
+    opacity: 0;
+    cursor: pointer;
+}
+
+.big_pic .text {
+    position: absolute;
+    left: 10px;
+    top: 462px;
+    z-index: 3000;
+    color: #ccc;
+}
+
+.big_pic .bg {
+    width: 800px;
+    height: 25px;
+    background: #000;
+    opacity: 0.5;
+    position: absolute;
+    z-index: 2999;
+    bottom: 0;
+    left: 0;
+}
+
+.small_pic {
+    width: 780px;
+    height: 94px;
+    position: relative;
+    top: 7px;
+    left: 10px;
+    overflow: hidden;
+}
+
+.small_pic ul {
+    width: 800px;
+    height: 94px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.small_pic li {
+    width: 250px;
+    height: 94px;
+    float: left;
+    padding-right: 10px;
+    background: url(../images/loading.gif) no-repeat center center;
+    cursor: pointer;
+    filter: alpha(opacity:30);
+    opacity: 0.3;
+}
+
+.small_pic img {
+    width: 250px;
+    height: 94px;
+}

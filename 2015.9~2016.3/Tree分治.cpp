@@ -117,9 +117,6 @@ void solve(int v) {
 
 int main()
 {
-    #ifdef LOCAL
-    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
-    #endif
     while (~scanf("%d%d", &n, &k) && (n | k)) {
         init();
         int u, v, l;
