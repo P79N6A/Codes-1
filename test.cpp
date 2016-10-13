@@ -1,61 +1,24 @@
-#include<algorithm>
-#include<bitset>
-#include<cctype>
-#include<cmath>
-#include<cstdio>
-#include<cstring>
-#include<iomanip>
-#include<iostream>
-#include<map>
-#include<queue>
-#include<set>
-#include<sstream>
-#include<stack>
-#include<string>
-#define ll long long
-#define pr(x) cout << #x << " = " << (x) << " ; ";
-#define prln(x) cout << #x << " = " << (x) << '\n';
-using namespace std;
-
-const int INF = 0x7f7f7f7f;
-const int MAXN = 1e6 + 111;
-
-int ls[MAXN];
-int nxt[MAXN];
-string x;
-
-void kmp_pre()
-{
-    int i,j;
-    int m = x.length();
-    j=nxt[0]=-1;
-    i=0;
-    while(i<m)
-    {
-        while(-1!=j && x[i]!=x[j])j=nxt[j];
-        nxt[++i]=++j;
-    }
-}
-
+#include<stdio.h>
 int main()
 {
-    while (cin >> x) {
-        ls[0] = -1;
-        int l = 0;
-        for (int i = 1; i < x.length(); ++i) {
-            ls[i] = l;
-            if (x[i] == x[l]) ++l;
-            else l = 0;
-        }
-        for (int i = 0; i < x.length(); ++i) {
-            printf("%d ", ls[i]);
-        }
-        putchar('\n');
-        kmp_pre();
-        for (int i = 0; i < x.length(); ++i) {
-            printf("%d ", nxt[i]);
-        }
-        putchar('\n');
+    int month,year;
+    scanf("%d,%d",&year,&month);
+    switch(month){
+    case 1:
+    case 3:
+    case 5:
+    case 7:
+    case 8:
+    case 10:
+    case 12:printf("day is 31");break;
+    case 4:
+    case 6:
+    case 9:
+    case 11:printf("day is 30");break;
     }
+    if(year%4==0&&year%100!=0||year%400==0)
+        printf("day is 29");
+    else
+        printf("day is 28");
     return 0;
 }
