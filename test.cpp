@@ -1,24 +1,32 @@
-#include<stdio.h>
+#include<algorithm>
+#include<bitset>
+#include<cctype>
+#include<cmath>
+#include<cstdio>
+#include<cstring>
+#include<iomanip>
+#include<iostream>
+#include<map>
+#include<queue>
+#include<set>
+#include<sstream>
+#include<stack>
+#include<string>
+#define ll long long
+#define pr(x) cout << #x << " = " << (x) << " ; ";
+#define prln(x) cout << #x << " = " << (x) << '\n';
+using namespace std;
+
+const int INF = 0x7f7f7f7f;
+const int MAXN = 1e6 + 111;
+
 int main()
 {
-    int month,year;
-    scanf("%d,%d",&year,&month);
-    switch(month){
-    case 1:
-    case 3:
-    case 5:
-    case 7:
-    case 8:
-    case 10:
-    case 12:printf("day is 31");break;
-    case 4:
-    case 6:
-    case 9:
-    case 11:printf("day is 30");break;
-    }
-    if(year%4==0&&year%100!=0||year%400==0)
-        printf("day is 29");
-    else
-        printf("day is 28");
+    #ifdef GooZy
+    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
+    #endif
+    int a, b;
+    scanf("%d*%d", &a, &b);
+    cout << a * b << '\n';
     return 0;
 }
