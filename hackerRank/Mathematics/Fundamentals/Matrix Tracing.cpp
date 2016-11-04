@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <bitset>
 #include <cctype>
 #include <cmath>
 #include <cstdio>
@@ -19,8 +18,32 @@ using namespace std;
 
 const int INF = 0x7f7f7f7f;
 const int MAXN = 2e6 + 111;
+const int MOD = 1e9 + 7;
 
-bool is[MAXN];
+ll f[MAXN];
+
+inline void init() {
+	f[0] = 1;
+	for (int i = 1; i <= 2e6; ++i) {
+		f[i] = f[i - 1] * i % MOD;
+	}
+}
+
+ll quick_pow(ll base, ll p) {
+	ll ret = 1;
+	for (; p; base = base * base % MOD, p >>= 1) {
+		if (p & 1) {
+			ret = ret * base % MOD;
+		}
+	}
+	return ret;
+}
+
+int C(int n, int m) {
+	ll up = 1;
+	for (int i = m - n + 1; i <= m; ++i) up = up * i % MOD;
+	return up * quick_pow(f[n], MOD - 2) % MOD;
+}
 
 int main()
 {
@@ -28,30 +51,12 @@ int main()
     freopen("/Users/apple1/Desktop/in.txt", "r", stdin);
     //freopen("/Users/apple1/Desktop/out.txt","w",stdout);
     #endif
-    int t; cin >> t;
-    ll n;
-    vector<int> prime;
-    for (int i = 2; i <= 2e6; ++i) {
-    	if (!is[i]) {
-    		prime.push_back(i);
-    		for (int j = i + i; j <= 2e6; j += i) {
-    			is[j] = 1;
-    		}
-    	}
-    }
+    int t, n, m; scanf("%d", &t);
+    init();
     while (t --) {
-        cin >> n;
-        int cnt = 0;
-        ll ans = n;
-        while (n != 1) {
-        	while (n % prime[cnt] == 0) {
-        		n /= prime[cnt];
-        		ans = prime[cnt];
-        	}
-        	if (++cnt == prime.size()) break;
-        }
-        ans = max(ans, n);
-        cout << ans << '\n';
+    	scanf("%d%d", &n, &m);
+    	--n, --m;
+    	printf("%d\n", C(n, m + n));
     }
     return 0;
 }

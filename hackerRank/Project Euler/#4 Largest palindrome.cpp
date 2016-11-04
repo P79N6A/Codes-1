@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <bitset>
 #include <cctype>
 #include <cmath>
 #include <cstdio>
@@ -18,9 +17,17 @@
 using namespace std;
 
 const int INF = 0x7f7f7f7f;
-const int MAXN = 2e6 + 111;
+const int MAXN = 1e6 + 111;
 
-bool is[MAXN];
+int ans[MAXN];
+char s[10];
+
+bool ok() {
+    for (int i = 0; i < 3; ++i) {
+        if (s[i] != s[5 - i]) return false;
+    }
+    return true;
+}
 
 int main()
 {
@@ -28,30 +35,22 @@ int main()
     freopen("/Users/apple1/Desktop/in.txt", "r", stdin);
     //freopen("/Users/apple1/Desktop/out.txt","w",stdout);
     #endif
-    int t; cin >> t;
-    ll n;
-    vector<int> prime;
-    for (int i = 2; i <= 2e6; ++i) {
-    	if (!is[i]) {
-    		prime.push_back(i);
-    		for (int j = i + i; j <= 2e6; j += i) {
-    			is[j] = 1;
-    		}
+    int t, n; cin >> t;
+    for (int i = 100; i < 1000; ++i) {
+    	for (int j = 100; j < 1000; ++j) {
+    		int cur = i * j;
+    		sprintf(s, "%d", cur);
+            if (strlen(s) == 6 && ok()) {
+                ans[cur + 1] = cur;
+            }
     	}
     }
+    for (int i = 1; i <= 1e6; ++i) {
+        ans[i] = max(ans[i], ans[i - 1]);
+    }
     while (t --) {
-        cin >> n;
-        int cnt = 0;
-        ll ans = n;
-        while (n != 1) {
-        	while (n % prime[cnt] == 0) {
-        		n /= prime[cnt];
-        		ans = prime[cnt];
-        	}
-        	if (++cnt == prime.size()) break;
-        }
-        ans = max(ans, n);
-        cout << ans << '\n';
+    	cin >> n;
+        cout << ans[n] << '\n';
     }
     return 0;
 }
