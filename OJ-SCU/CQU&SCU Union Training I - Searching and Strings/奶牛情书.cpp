@@ -1,16 +1,3 @@
-#include<algorithm>
-#include<cctype>
-#include<cmath>
-#include<cstdio>
-#include<cstring>
-#include<iomanip>
-#include<iostream>
-#include<map>
-#include<queue>
-#include<set>
-#include<sstream>
-#include<stack>
-#include<string>
 #define ll long long
 #define pr(x) cout << #x << " = " << (x) << '\n';
 using namespace std;
@@ -131,11 +118,10 @@ ll quickpow(ll x, ll p) {
 
 int main()
 {
-    #ifdef LOCAL
-    freopen("C:\\Users\\apple\\Desktop\\in.txt", "r", stdin);
-    #endif
     int n, m, t; scanf("%d", &t);
     while (t --) {
+        // 单词数   生成文本串长度
+        // 本题求，生成文本串中，至少含有一个单词的个数
         scanf("%d%d", &n, &m);
         ac.init();
         while (n --) {

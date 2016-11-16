@@ -1,20 +1,4 @@
-#include <algorithm>
-#include <bitset>
-#include <cctype>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include <iomanip>
-#include <iostream>
-#include <map>
-#include <queue>
-#include <set>
-#include <sstream>
-#include <stack>
-#include <string>
-#define ll long long
-#define pr(x) cout << #x << " = " << (x) << " ; ";
-#define prln(x) cout << #x << " = " << (x) << '\n';
+
 using namespace std;
 
 const int INF = 0x7f7f7f7f;
@@ -22,14 +6,11 @@ const int MAXN = 2e6 + 111;
 
 char s[MAXN];
 char st[70];
+// 匹配串长度500，字符数256个
 bitset<505> p[256], match;
 
 int main()
 {
-    #ifdef GooZy
-    freopen("/Users/apple1/Desktop/in.txt", "r", stdin);
-    //freopen("/Users/apple1/Desktop/out.txt","w",stdout);
-    #endif
     int n, m;
     while (gets(s)) {
     	scanf("%d", &n);

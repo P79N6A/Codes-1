@@ -1,32 +1,125 @@
-#include <algorithm>
-#include <cctype>
-#include <cmath>
-#include <cstdio>
-#include <cstring>
-#include <iomanip>
-#include <iostream>
-#include <map>
-#include <queue>
-#include <set>
-#include <sstream>
-#include <stack>
-#include <string>
+#include<algorithm>
+#include<cctype>
+#include<cmath>
+#include<cstdio>
+#include<cstring>
+#include<iomanip>
+#include<iostream>
+#include<map>
+#include<queue>
+#include<set>
+#include<sstream>
+#include<stack>
+#include<string>
+#define lowbit(x) (x & (-x))
 #define ll long long
-#define pr(x) cout << #x << " = " << (x) << " ; ";
-#define prln(x) cout << #x << " = " << (x) << '\n';
+#define pr(x) cout << #x << " = " << (x) << '\n';
 using namespace std;
 
-const int INF = 0x7f7f7f7f;
-const int MAXN = 1e5 + 111;
+const int MAXN = 510;//µãÊýµÄ×î´óÖµ
+const int MAXM = 540010;//±ßÊýµÄ×î´óÖµµÄÁ½±¶
+const int INF = 0x3f3f3f3f;
+
+struct Edge
+{
+    int to,next,cap,flow;
+}edge[MAXM];//×¢ÒâÊÇMAXM
+int tol, src, des;
+int head[MAXN];
+int gap[MAXN],dep[MAXN],pre[MAXN],cur[MAXN];
+
+void init()
+{
+    tol = 0;
+    memset(head,-1,sizeof(head));
+}
+//¼Ó±ß£¬µ¥ÏòÍ¼Èý¸ö²ÎÊý£¬Ë«ÏòÍ¼ËÄ¸ö²ÎÊý
+void addedge(int u,int v,int w,int rw=0)
+{
+    edge[tol].to = v;edge[tol].cap = w;edge[tol].next = head[u];
+    edge[tol].flow = 0;head[u] = tol++;
+    edge[tol].to = u;edge[tol].cap = rw;edge[tol].next = head[v];
+    edge[tol].flow = 0;head[v]=tol++;
+}
+//ÊäÈë²ÎÊý£ºÆðµã¡¢ÖÕµã¡¢µãµÄ×ÜÊý
+//µãµÄ±àºÅÃ»ÓÐÓ°Ïì£¬Ö»ÒªÊäÈëµãµÄ×ÜÊý
+int sap(int start,int end,int N)
+{
+    memset(gap,0,sizeof(gap));
+    memset(dep,0,sizeof(dep));
+    memcpy(cur,head,sizeof(head));
+    int u = start;
+    pre[u] = -1;
+    gap[0] = N;
+    int ans = 0;
+    while(dep[start] < N)
+    {
+        if(u == end)
+        {
+            int Min = INF;
+            for(int i = pre[u];i != -1; i = pre[edge[i^1].to])
+            if(Min > edge[i].cap - edge[i].flow)
+                Min = edge[i].cap - edge[i].flow;
+            for(int i = pre[u];i != -1; i = pre[edge[i^1].to])
+            {
+                edge[i].flow += Min;
+                edge[i^1].flow -= Min;
+            }
+            u = start;
+            ans += Min;
+            continue;
+        }
+        bool flag = false;
+        int v;
+        for(int i = cur[u]; i != -1;i = edge[i].next)
+        {
+            v = edge[i].to;
+            if(edge[i].cap - edge[i].flow && dep[v]+1 == dep[u])
+            {
+                flag = true;
+                cur[u] = pre[v] = i;
+                break;
+            }
+        }
+        if(flag)
+        {
+            u = v;
+            continue;
+        }
+        int Min = N;
+        for(int i = head[u]; i != -1;i = edge[i].next)
+            if(edge[i].cap - edge[i].flow && dep[edge[i].to] < Min)
+            {
+                Min = dep[edge[i].to];
+                cur[u] = i;
+            }
+        gap[dep[u]]--;
+        if(!gap[dep[u]])return ans;
+        dep[u] = Min+1;
+        gap[dep[u]]++;
+        if(u != start) u = edge[pre[u]^1].to;
+    }
+    return ans;
+}
 
 int main()
 {
     #ifdef GooZy
     freopen("/Users/apple1/Desktop/in.txt", "r", stdin);
-    freopen("/Users/apple1/Desktop/out.txt","w",stdout);
+    //freopen("/Users/apple1/Desktop/out.txt","w",stdout);
     #endif
-    for (int i = 316; i <= 350; ++i) {
-    	cout << "ftp://çº¢æ—…åŠ¨æ¼«@wt3.hltm.cc:22/çº¢æ—…é¦–å‘-www.hltm.netæµ·è´¼çŽ‹" << i << ".rmvb\n";
+    for (int kk, kase = scanf("%d", &kk); kase <= kk; ++kase) {
+        init();
+        int n, m, u, v, w;
+        scanf("%d%d", &n, &m);
+        while (m --) {
+            scanf("%d%d%d", &u, &v, &w);
+            addedge(u, v, w);
+        }
+        printf("%d\n", sap(1, n, n + 1));
+        addedge(1, 3, 1);
+        printf("%d\n", sap(1, n, n + 1));
     }
     return 0;
 }
+
