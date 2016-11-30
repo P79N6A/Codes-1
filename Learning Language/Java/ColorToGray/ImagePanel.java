@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -24,7 +23,7 @@ public class ImagePanel extends JPanel {
     public void readImage(String path) throws IOException {
         FileInputStream file = new FileInputStream(path);
         BufferedInputStream buff = new BufferedInputStream(file);
-        // 14×Ö½ÚÎ»Í¼Í·ĞÅÏ¢ + 4×Ö½ÚÎ»Í¼ĞÅÏ¢Í·Õ¼ÓÃ´óĞ¡
+        // 14å­—èŠ‚ä½å›¾å¤´ä¿¡æ¯ + 4å­—èŠ‚ä½å›¾ä¿¡æ¯å¤´å ç”¨å¤§å°
         buff.skip(18);
         byte w[] = new byte[4], h[] = new byte[4];
         buff.read(w);
@@ -32,13 +31,13 @@ public class ImagePanel extends JPanel {
         width = byteToInt(w);
         height = byteToInt(h);
         System.out.printf("%d X %d\n", width, height);
-        // ¼ÆËãÃ¿ËÄ×Ö½ÚÒ»Æğ,Ê£Óà¶àÉÙ×Ö½ÚĞèÒªÌø¹ı
+        // è®¡ç®—æ¯å››å­—èŠ‚ä¸€èµ·,å‰©ä½™å¤šå°‘å­—èŠ‚éœ€è¦è·³è¿‡
         int left = (4 - width * 3 % 4) % 4;
         bufferImage = new Color[width][height];
         orgRGB = new Color[width][height];
-        buff.skip(28); // ¶ªÆúÊ£ÓàµÄ
+        buff.skip(28); // ä¸¢å¼ƒå‰©ä½™çš„
         
-        // ´Ó×óÏÂ½Çµ½ÓÒÉÏ½Ç,ĞĞÏÈ
+        // ä»å·¦ä¸‹è§’åˆ°å³ä¸Šè§’,è¡Œå…ˆ
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
                 int blue = buff.read();
@@ -54,7 +53,7 @@ public class ImagePanel extends JPanel {
         //add(new JLabel(new ImageIcon(photo)));
     }
     
-    // ×¢ÒâÊÇĞ¡¶Ë´æ´¢
+    // æ³¨æ„æ˜¯å°ç«¯å­˜å‚¨
     public int byteToInt(byte a[]) {
         return (a[3] << 24) | (a[2] << 16) | (a[1] << 8) | a[0];
     }

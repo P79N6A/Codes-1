@@ -19,16 +19,27 @@ using namespace std;
 const int INF = 0x7f7f7f7f;
 const int MAXN = 1e5 + 111;
 
-string s = "ftp://红旅动漫@wt3.hltm.cc:22/红旅首发-www.hltm.net海贼王";
-
 int main()
 {
     #ifdef GooZy
-    freopen("/Users/apple1/Desktop/in.txt", "w", stdout);
+    freopen("/Users/apple1/Desktop/in.txt", "r", stdin);
     //freopen("/Users/apple1/Desktop/out.txt","w",stdout);
     #endif
-    for (int i = 571; i <= 600; ++i) {
-        cout << s << i << ".rmvb\n";
+    string s;
+    int n;
+    cin >> n >> s;
+    for (int i = 0; i < n; ++i) {
+    	if (i < n - 2 && s.substr(i, 3) == "ogo") {
+    		cout << "***";
+    		for (int j = i + 3; j < n - 1; j += 2) {
+    			if (s[j] == 'g' && s[j + 1] == 'o') {
+    				i += 2;
+    			}
+    			else break;
+    		}
+    		i += 2;
+    	}
+    	else cout << s[i];
     }
     return 0;
 }
