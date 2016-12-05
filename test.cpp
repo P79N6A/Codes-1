@@ -25,5 +25,7 @@ int main()
     freopen("/Users/apple1/Desktop/in.txt", "r", stdin);
     //freopen("/Users/apple1/Desktop/out.txt","w",stdout);
     #endif
+    string s = "";
+    s += 'a';
     return 0;
 }
