@@ -8,7 +8,7 @@ ply = Player()
 
 class Engine(object):
 	
-	def disPlayInfo(self):
+	def display_info(self):
 		s = ("====================================\n"
 		"Welcome to the magic world!\n"
 		"You are going to find out the Light\n"
@@ -26,7 +26,7 @@ class Engine(object):
 		"====================================")
 		print s
 
-	def showPos(self):
+	def show_pos(self):
 		for i in range(-1, 2):
 			sys.stdout.write('|')
 			for j in range(-1, 2):
@@ -36,7 +36,7 @@ class Engine(object):
 			print "|"
 		print "Your hp: %d" % ply.hp
 
-	def playGame(self):
+	def play_game(self):
 		number = randint(1, 10)
 		time = randint(2, 3)
 		print "I have a number between 1 and 10 needs you to guess."
@@ -61,7 +61,7 @@ class Engine(object):
 			print "Silly man! hp down!"
 			ply.hp -= 1
 
-	def randomCase(self):
+	def random_cases(self):
 		"""need to add more"""
 		case = randint(0, 4)
 		if case == 0:
@@ -69,7 +69,7 @@ class Engine(object):
 			ply.hp += 1
 		elif case == 1:
 			print "I wanna play a game with you man."
-			self.playGame()
+			self.play_game()
 		else:
 			print "You see a giant bear and feel scared. hp down!"
 			ply.hp -= 1
@@ -84,23 +84,23 @@ class Engine(object):
 			print "You eat an apple. hp up!"
 			ply.hp += 1
 		elif mp.map[pos] == '?':
-			self.randomCase()
+			self.random_cases()
 		elif mp.map[pos] == '*':
 			if ply.hp > 3:
-				self.goodEnd()
+				self.good_end()
 				exit(0)
 			else:
 				print "hp is not greater than 3."
 				return False
 		return True
 
-	def goodEnd(self):
+	def good_end(self):
 		print "==============================================="
 		print "You find the light! Hope light always with you."
 		print "==============================================="
 
 
-	def badEnd(self):
+	def bad_end(self):
 		print "========================================"
 		print "Sorry man. You will never see the Light."
 		print "========================================"
@@ -109,11 +109,11 @@ class Engine(object):
 		flag = True
 		while (True):
 			if ply.hp <= 0:
-				self.badEnd()
+				self.bad_end()
 				exit(1)
 			if flag:
 				print "Now you are in:"
-				self.showPos()
+				self.show_pos()
 			nxt = raw_input("What's next?(w/a/s/d)\n> ")
 
 			savex = ply.x
@@ -147,5 +147,5 @@ class Engine(object):
 
 
 play = Engine()
-play.disPlayInfo()
+play.display_info()
 play.play()
