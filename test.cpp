@@ -25,5 +25,6 @@ int main()
     freopen("/Users/apple1/Desktop/in.txt", "r", stdin);
     //freopen("/Users/apple1/Desktop/out.txt","w",stdout);
     #endif
+    cout << atan(2) << '\n';
     return 0;
 }
