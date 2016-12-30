@@ -1,3 +1,5 @@
+// 工厂模式初试
+
 import static Print.Print.*;
 
 interface Cycle {
