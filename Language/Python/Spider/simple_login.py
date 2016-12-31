@@ -19,7 +19,7 @@ values = {
 "GradeList":"软件2014级",
 "RoomNameList":"梅六305",
 "RealUmpiresText": "4",
-"OtherInformation":"都齐了",
+"OtherInformation":"帅气的305寝室长梁先锋，今天又带着全员都齐的消息来签到啦",
 "ButtonSummit":"提交",
 "__EVENTTARGET": "",
 "__EVENTARGUMENT": "",
@@ -38,13 +38,7 @@ headers = {'User-Agent' : user_agent}
 req = urllib2.Request(url, data, headers)
 response = urllib2.urlopen(req)
 
-print response.read()
-
-# values={}
-# values['username'] = "20141792"
-# values['password']="xxxxxx"
-# data = urllib.urlencode(values) 
-# url = "http://202.202.1.176:8080/_data/index_login.aspx"
-# geturl = url + "?" + data
-# request = urllib2.Request(geturl)
-# response = urllib2.urlopen(request)
+str = response.read()
+ret = re.compile('(提交成功)').findall(str)
+print ret
+                        

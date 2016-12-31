@@ -23,15 +23,16 @@ int main()
 {
     #ifdef GooZy
     freopen("/Users/apple1/Desktop/in.txt", "r", stdin);
-    freopen("/Users/apple1/Desktop/data2.txt","w",stdout);
+    //freopen("/Users/apple1/Desktop/in.txt","w",stdout);
     #endif
-    int num = 0;
-    string s;
-    while (getline(cin, s)) {
-    	++num;
-    	if (num > 7000)
-    		cout << s << '\n';
+    string s, ret;
+    getline(cin, s);
+    for (int i = 0; i < s.length(); ++i) {
+        if (s[i] == ' ') {
+            continue;
+        }
+        ret += s[i];
     }
-    cout << num << '\n';
+    cout << ret << endl;
     return 0;
 }
