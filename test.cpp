@@ -39,6 +39,13 @@ int main()
     freopen("/Users/apple1/Desktop/in.txt", "r", stdin);
     //freopen("/Users/apple1/Desktop/in.txt","w",stdout);
     #endif
+    string s, ret;
+    getline(cin, s);
+    for (int i = 0; i < s.length(); ++i) {
+        if (s[i] != ' ') ret += s[i];
+    }
+    cout << ret << '\n';
+
     int n; cin >> n;
     for (int i = 1; i <= n; ++i) {
         cin >> a[i];
