@@ -1,4 +1,4 @@
-package Print;
+package cc.goozy.util;
 
 public class Print {
     public static void println(Object obj) {
