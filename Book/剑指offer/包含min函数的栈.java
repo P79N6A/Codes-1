@@ -1,8 +1,8 @@
 import java.util.Stack;
 
 public class Solution {
-    private StackInteger stack = new Stack();
-    private StackInteger minStack = new Stack();
+    private Stack<Integer> stack = new Stack<>();
+    private Stack<Integer> minStack = new Stack<>();
     private boolean first = true;
     public void push(int node) {
         stack.push(node);
@@ -10,7 +10,7 @@ public class Solution {
             minStack.push(node);
             first = false;
         }
-        else if (!minStack.isEmpty() && node = minStack.peek()) {
+        else if (!minStack.isEmpty() && node <= minStack.peek()) {
             minStack.push(node);
         }
     }
