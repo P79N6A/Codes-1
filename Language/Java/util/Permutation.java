@@ -16,6 +16,54 @@ public class Permutation {
             swap(s, pos, i);
         }
     }
+
+    public static boolean nextPermutation(char[] s) {
+        int n = s.length;
+        int index = -1;
+        for (int i = n - 2; i >= 0; --i) {
+            if (s[i] < s[i + 1]) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) return false;
+        
+        int nxtPos = n;
+        while (--nxtPos > index) {
+            if (s[nxtPos] > s[index]) break;
+        }
+        swap(s, index, nxtPos);
+        int l = index, r = n;
+        while (++l < --r) {
+            swap(s, l, r);
+        }
+        
+        return true;
+    }
+    
+    public static boolean prePermutation(char[] s) {
+        int n = s.length;
+        int index = -1;
+        for (int i = n - 2; i >= 0; --i) {
+            if (s[i] > s[i + 1]) {
+                index = i;
+                break;
+            }
+        }
+        if (index == -1) return false;
+        
+        int nxtPos = n;
+        while (--nxtPos > index) {
+            if (s[nxtPos] < s[index]) break;
+        }
+        swap(s, index, nxtPos);
+        int l = index, r = n;
+        while (++l < --r) {
+            swap(s, l, r);
+        }
+        
+        return true;
+    }
     
     /**
      * 交换char[]数组的两个元素
