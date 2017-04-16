@@ -6,6 +6,8 @@ This repository is used for storing my codes.
 
 [剑指offer](/Book/剑指offer/)
 
+[程序员面试金典](/Book/程序员面试金典/)
+
 [hiho一下](/OJ-hihocoder/hiho一下/)
 
 [CF动态规划](/OJ-Codeforces/Dynamic-Programming/)
