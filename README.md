@@ -17,3 +17,7 @@ This repository is used for storing my codes.
 [个人模板](/Template/)
 
 [Java工具类](/Language/Java/util/)
+
+## 课程类
+
+[数据仓库与数据挖掘](/Course/数据仓库与数据挖掘/)

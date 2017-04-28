@@ -1,0 +1,24 @@
+Hello,
+
+Create a pseudo-random text generator in python. You can choose the implementation algorithm you find to be most appropriate. Note that you can implement this according to a Markov model of order k = 3 by building a Markov chain from a piece of text.
+
+
+1- Optional reading:
+http://www.cs.princeton.edu/courses/archive/spr05/cos126/assignments/markov.html
+
+2- Deliverables:
+Answer to this email with:
+a-Your solution in python, named TextGenerator.py
+b-The text you used for testing, input.txt
+c-A sample of your output text, output.txt
+
+3-Notes:
+-The top header of your TextGenerator.py should have a comment that explains your algorithm
+-Your code should be commented in English
+
+
+4-Due date: 
+-Wednesday 03rd, May 2017.
+
+Thank you,
+Feno
