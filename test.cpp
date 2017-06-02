@@ -35,16 +35,6 @@ bool judge(double p, double x, double y) {
 
 int main()
 {
-    #ifdef GooZy
-    freopen("/Users/apple1/Desktop/in.txt", "r", stdin);
-    freopen("/Users/apple1/Desktop/out.txt","w",stdout);
-    #endif
-    int t; cin >> t;
-    double p, x, y;
-    for (int kase = 1; kase <= t; ++kase) {
-        cin >> p >> x >> y;
-        bool flag = judge(p, x, y);
-        cout << "Case #" << kase << ": " << (flag? "white" : "black") << '\n';
-    }
+    cout << (~(-5)) + 1 << endl;
     return 0;
 }
