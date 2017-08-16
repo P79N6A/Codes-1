@@ -1,4 +1,4 @@
-from PIL import Image, ImageFilter
+﻿from PIL import Image, ImageFilter
 # 读取图像
 im = Image.open( 'blind.png' )
 w, h = im.size
@@ -12,3 +12,5 @@ for i in range(0,w):
         else:
             f.write('*')
     f.write('\n')
+
+# 其实液晶屏直接斜着看也能看到答案
