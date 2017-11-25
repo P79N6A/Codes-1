@@ -3,8 +3,10 @@
 # @Time    : 2017/11/25 16:51
 # @Author  : GooZy
 import copy
+import sys
 
-times = 1000  # 进行轮次
+auto = False  # 手动运行程序还是自动
+times = 1000  # 进行轮次（自动运行须设置）
 init_position = [(0, 0), (1, 0), (-1, 0), (-1, 1), (0, -1)]
 
 
@@ -38,6 +40,24 @@ def process(num):
     return backup
 
 
+def show_map(num):
+    sys.stdout.write('\033[2J')  # 控制台清屏
+    max_x, min_x, max_y, min_y = 0, 0, 0, 0
+    for k in num:
+        x, y = k
+        max_x = max(max_x, x)
+        min_x = min(min_x, x)
+        max_y = max(max_y, y)
+        min_y = min(min_y, y)
+    for i in range(min_x, max_x + 1):
+        for j in range(min_y, max_y + 1):
+            if (i, j) in num:
+                sys.stdout.write('O')
+            else:
+                sys.stdout.write('-')
+        sys.stdout.write('\n')
+
+
 def begin():
     num = dict()  # 点周围有多少个生命体
     for each in init_position:
@@ -51,13 +71,17 @@ def begin():
         if len(num) > mx:
             mx = len(num)
             mx_rnd = rnd
-        # judge = raw_input('是否进行下一轮？(按任意键继续，q退出)')
-        num = process(num)
+        if auto:
+            num = process(num)
+            if rnd == times:
+                break
+        else:
+            show_map(num)  # 显示地图。仅在控制台运行程序可查看效果
+            judge = raw_input('是否进行下一轮？(按任意键继续，q退出)')
+            if judge.lower() == 'q':
+                break
+            num = process(num)
         rnd += 1
-        if rnd == times:
-            break
-        # if judge.lower() == 'q':
-        #     break
     print('进过了%s轮' % rnd)
     print('最大存活为第%s轮，数量为%s' %(mx_rnd, mx))
 
