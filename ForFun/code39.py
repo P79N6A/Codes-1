@@ -54,23 +54,22 @@ alph_binary = {
 
 
 def generate_code(code):
+    # 首尾一定是*
+    # 所有字符后面都跟单位宽度白条
     white = (255, 255, 255)
     width = 2
     height = 60
     code = '*' + code + '*'
-    image = np.zeros((height, width * (len(code) * 12 + (len(code) - 1)), 3), dtype=np.uint8)
-    first = True
+    image = np.zeros((height, width * (len(code) * 12 + (len(code))), 3), dtype=np.uint8)
     index = 0
     for each in code:
-        if not first:
-            cv2.rectangle(image, (index, 0), (index + width - 1, height), white, -1)
-            index += width
-        first = False
         binary = alph_binary[each]
         for bit in binary:
             if bit == '0':
                 cv2.rectangle(image, (index, 0), (index + width - 1, height), white, -1)
             index += width
+        cv2.rectangle(image, (index, 0), (index + width - 1, height), white, -1)
+        index += width
     cv2.imwrite('tmp.jpg', image)
 
 
