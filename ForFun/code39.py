@@ -74,4 +74,4 @@ def generate_code(code):
 
 
 if __name__ == '__main__':
-    generate_code("08280841-6")
+    generate_code("082808416")
