@@ -78,8 +78,56 @@ def how_descriptor():
     print(A.x)
 
 
+def how_try():
+    try:
+        print(1)
+        # x = 10 / 0
+        return 10
+    except Exception as ex:
+        print(2)
+    else:
+        print(3)
+
+
+len = 10
+def how_closures():
+    x = 'abc'
+
+    def sort_priority(numbers, group):
+        found = False
+
+        def helper(x):
+            if x in group:
+                global found
+                found = True  # not affect the outer variable
+                return (0, x)
+            return (1, x)
+        numbers.sort(key=helper)
+        return found
+    print(sort_priority([1, 2, 3], [1]))
+
+
+def how_collections():
+    import collections
+    Point = collections.namedtuple('Point', ('x', 'y'))
+    p = Point(1, 2)
+    print(p[0], p.x)
+
+
+def inc(num):
+    num = 2
+    if num > 0:
+        num = 3
+    print 'nnn'
+    print num
+
+
 if __name__ == '__main__':
-    how_dict()
+    # how_dict()
     # how_zip()
     # how_fe()
     # how_descriptor()
+    # how_try()
+    # how_closures()
+    # how_collections()
+    inc(-1)
