@@ -115,8 +115,8 @@ def inc(num):
     num = 2
     if num > 0:
         num = 3
-    print 'nnn'
-    print num
+    print('nnn')
+    print(num)
 
 
 def how_class():
@@ -234,7 +234,7 @@ def how_datetime():
     from datetime import datetime
     from time import mktime
     now = datetime.now()
-    print mktime(now.timetuple())
+    print(mktime(now.timetuple()))
 
 
 def how_bisect():
