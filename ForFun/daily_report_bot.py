@@ -26,6 +26,7 @@ def report_today():
         'text': doc('a.oncl_q > img').attr('alt')
     }
     q = data['text']
+    name = q.split('-')[-1].strip().replace(' ', '%20')
     salt = random.randint(1, 65536)
     sign = app + q + str(salt) + auth_key
     m1 = hashlib.md5()
@@ -37,6 +38,7 @@ def report_today():
     result = requests.get(api_url).json()
     if result['translation']:
         data['text'] = data['text'] + u'（%s）' % result['translation'][0]
+    data['text'] += u"\nhttps://www.google.com.hk/search?q=%s\nhttps://www.baidu.com/s?ie=UTF-8&wd=%s" % (name, name)
     requests.post(key, data=json.dumps(data))
 
 
