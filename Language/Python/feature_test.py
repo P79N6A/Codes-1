@@ -250,6 +250,28 @@ def how_decimal():
     print(x.quantize(Decimal('0.01'), rounding=ROUND_UP))
 
 
+def how_cmp():
+    class FlagSource(object):
+        def __init__(self, _name, _priority):
+            self.name = _name
+            self.priority = _priority
+
+        def __le__(self, other):
+            return self.priority >= other.priority
+
+        def __eq__(self, other):
+            return self.priority == other.priority
+
+        def __lt__(self, other):
+            return self.priority > other.priority
+
+    source1 = FlagSource('a', 3)
+    source2 = FlagSource('b', 1)
+    source3 = FlagSource('c', 3)
+    print(source1 <= source3)
+    print(source1 >= source2)
+
+
 if __name__ == '__main__':
     # how_dict()
     # how_zip()
@@ -267,4 +289,5 @@ if __name__ == '__main__':
     # how_copyreg()
     # how_datetime()
     # how_bisect()
-    how_decimal()
+    # how_decimal()
+    how_cmp()
