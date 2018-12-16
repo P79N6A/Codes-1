@@ -272,6 +272,25 @@ def how_cmp():
     print(source1 >= source2)
 
 
+def how_redis():
+    from redis import StrictRedis
+    client = StrictRedis()
+    key_list = ['key_' + str(i) for i in range(10)]
+    client.delete(*key_list)
+    client.zrem('name', *key_list)
+    client.hdel('name', 'value', *key_list)
+    client.lrem('name', count=0, value=10)
+    client.zrange('name', 0, 0, withscores=True)
+    client.zremrangebyrank()
+    client.zincrby()
+    client.zadd()
+    client.zinterstore()
+    client.mget()
+    client.mset()
+    pipe = client.pipeline()
+    pipe.multi()
+
+
 if __name__ == '__main__':
     # how_dict()
     # how_zip()
@@ -290,4 +309,5 @@ if __name__ == '__main__':
     # how_datetime()
     # how_bisect()
     # how_decimal()
-    how_cmp()
+    # how_cmp()
+    how_redis()
