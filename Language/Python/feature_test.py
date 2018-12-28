@@ -35,6 +35,13 @@ def how_dict():
     # print(x.hello)
     print(x[hello])
 
+    class BeDict(object):
+        def __init__(self, a=1, b='b'):
+            self.a = a
+            self.b = b
+    x = BeDict()
+    print(x.__dict__)
+
 
 def how_zip():
     x = (x for x in range(4))
@@ -195,6 +202,7 @@ def how_contextmanager():
     import logging
     import time
     def debug():
+        logging.error('begin')
         logging.error('error')
         logging.warn('warn')
         logging.info('info')
@@ -209,7 +217,7 @@ def how_contextmanager():
             yield
         finally:
             logger.setLevel(old_level)
-    with log_level(logging.DEBUG):
+    with log_level(logging.ERROR):
         debug()
         debug()
 
@@ -231,10 +239,19 @@ def how_copyreg():
 
 
 def how_datetime():
-    from datetime import datetime
+    from datetime import datetime, timedelta
     from time import mktime
     now = datetime.now()
     print(mktime(now.timetuple()))
+    base_date = datetime.today().date() - timedelta(days=1)
+    date_list = list()
+    for i in range(28, -1, -7):
+        date_list.append(str(base_date - timedelta(days=i)))
+    import bisect
+    print(date_list)
+    index = bisect.bisect_left(date_list, '2018-12-26')
+    print(index)
+    print(date_list[index])
 
 
 def how_bisect():
@@ -289,6 +306,25 @@ def how_redis():
     client.mset()
     pipe = client.pipeline()
     pipe.multi()
+    client.zrevrangebyscore()
+    client.blpop()
+
+
+def how_inspect():
+    import inspect
+    def test(xx, hello='hh'):
+        print(hello)
+
+    print(inspect.getfullargspec(test))
+
+
+def how_base64():
+    import base64
+    import hexdump
+    data = "k1T0JZKxCM04CzK0CzmyDW=="  # 010-62682929
+    data = "ffPLHJO1CJi0CzW4DNiz"  # 15164388463
+    d_data = base64.b64decode(data)
+    hexdump.hexdump(d_data)
 
 
 if __name__ == '__main__':
@@ -310,4 +346,6 @@ if __name__ == '__main__':
     # how_bisect()
     # how_decimal()
     # how_cmp()
-    how_redis()
+    # how_redis()
+    # how_inspect()
+    how_base64()
