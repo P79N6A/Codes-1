@@ -327,6 +327,14 @@ def how_base64():
     hexdump.hexdump(d_data)
 
 
+def how_nametuple():
+    from collections import namedtuple
+    import inspect
+    x = namedtuple('FullArgSpec', 'args varargs varkw defaults '
+                       'kwonlyargs kwonlydefaults')
+    print(x._make(inspect.getargspec(how_base64) + ([], None)))
+
+
 if __name__ == '__main__':
     # how_dict()
     # how_zip()
@@ -348,4 +356,5 @@ if __name__ == '__main__':
     # how_cmp()
     # how_redis()
     # how_inspect()
-    how_base64()
+    # how_base64()
+    how_nametuple()
