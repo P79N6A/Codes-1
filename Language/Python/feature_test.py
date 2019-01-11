@@ -152,6 +152,9 @@ def how_thread():
     from threading import Thread
     from time import time
 
+    class A(object):
+        total = 0
+
     def compute(value):
         for i in range(1, value + 1):
             if value % i == 0:
@@ -159,16 +162,23 @@ def how_thread():
     def test(value):
         import time
         time.sleep(0.1)
+    def add(value):
+        for i in range(10000):
+            value.total += 1
+            import time
+            time.sleep(.0001)
 
     start = time()
+    a = A()
     threads = list()
     for each in [2139079, 1214759, 2139079, 1214759, 2139079, 1214759]:
-        x = Thread(target=test, args=[each])
+        x = Thread(target=add, args=[a])
         x.start()
         threads.append(x)
     for each in threads:
         each.join()
     print(time() - start)
+    print(a.total)
 
 
 def how_queue():
@@ -335,6 +345,35 @@ def how_nametuple():
     print(x._make(inspect.getargspec(how_base64) + ([], None)))
 
 
+def how_metaclass():
+    from abc import ABCMeta, abstractmethod
+    from six import add_metaclass
+
+    @add_metaclass(ABCMeta)
+    class EventBus(object):
+        """事件总线接口"""
+
+        @abstractmethod
+        def publish(self, event):
+            """ 发布事件接口 """
+            pass
+
+        @abstractmethod
+        def register(self, listener):
+            """注册listener接口"""
+            pass
+
+        @abstractmethod
+        def unregister(self, listener):
+            """取消注册listener接口"""
+            pass
+
+    class Test(EventBus):
+        pass
+
+    test = Test()
+
+
 if __name__ == '__main__':
     # how_dict()
     # how_zip()
@@ -345,7 +384,7 @@ if __name__ == '__main__':
     # how_collections()
     # inc(-1)
     # how_class()
-    # how_thread()
+    how_thread()
     # how_queue()
     # how_coroutine()
     # how_contextmanager()
@@ -357,4 +396,5 @@ if __name__ == '__main__':
     # how_redis()
     # how_inspect()
     # how_base64()
-    how_nametuple()
+    # how_nametuple()
+    # how_metaclass()
