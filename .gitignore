@@ -3,5 +3,6 @@
 *.DS_Store
 *.class
 *.pyc
+*.log
 .idea
 .ipynb_checkpoints
