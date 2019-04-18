@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"encoding/json"
+	"github.com/go-redis/redis"
 )
 
 const (
@@ -38,4 +40,41 @@ func main() {
 	for i := 0; i < 10; i++ {
 		fmt.Println(i)
 	}
+
+	x, y := 12, 88
+	fmt.Printf("x = %d, p = %p\n", x, &x)
+	fmt.Printf("y = %d, p = %p\n", y, &y)
+	x, z := 88, 70
+	fmt.Printf("x = %d, p = %p\n", x, &x)
+	fmt.Printf("z = %d, p = %p\n", z, &z)
+
+	raw := `{ "Name" : "Platypus" , "Order" : "Monotremata" , "Time" : 123 } `
+	type Animal struct {
+		Name  string
+		Order string
+	}
+	var rawData = []byte(raw)
+	var animal Animal
+	json.Unmarshal(rawData, &animal)
+	fmt.Println(animal.Order)
+
+	r := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	})
+	data, _ := r.Get("test").Result()
+	fmt.Println(data)
+	blob := []byte(data)
+	type A struct {
+		Name string
+		Age int8
+		T int64
+	}
+	p := new(A)
+	json.Unmarshal(blob, &p)
+	fmt.Println(p)
+
+	li := []string{"UC浏览器"}
+	fmt.Println(li)
 }
