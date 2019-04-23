@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"encoding/json"
 	"github.com/go-redis/redis"
+	"time"
 )
 
 const (
@@ -27,6 +28,14 @@ func multiply(x, y int) (mx, my int) {
 	mx = x * 10
 	my = y * 20
 	return
+}
+
+func GetDateFormatStringFromInt64(format string, t int64) string {
+	if format == "" {
+		format = "2006-01-02 15:04:05"
+	}
+	tm := time.Unix(t, 0)
+	return tm.Format(format)
 }
 
 func main() {
@@ -77,4 +86,6 @@ func main() {
 
 	li := []string{"UC浏览器"}
 	fmt.Println(li)
+	fmt.Println(time.Unix(time.Now().Unix(), 0).Format("2006-01-02 15:04:05"))
+	fmt.Println(GetDateFormatStringFromInt64("", 1554739199))
 }
